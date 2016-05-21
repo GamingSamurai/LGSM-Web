@@ -8,8 +8,10 @@
  */ 
  
 require 'includes/master.inc.php'; // do login and stuff
-// here would should define all areas/modules currently it is manual !
 
+// here would should define all areas/modules currently it is manual !
+//	echo 'about to die';			
+	//die ($page['theme_path']);			
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -28,15 +30,7 @@ if($Auth->loggedIn())
 				  				   
 			   //$login = $template->load($page['template_path'].'member.html', COMMENT);
 			   $page['content'] = 'user loged in';
-			   $page['search'] = '<div id="search" class="noprint">
-            <form action="" method="get">
-                <fieldset><legend>Search</legend>
-                    <label><span class="noscreen">Find:</span>
-                    <span id="search-input-out"><input type="text" name="" id="search-input" size="30" /></span></label>
-                    <input type="image" src="design/search_submit.gif" id="search-submit" value="OK" />
-                </fieldset>
-            </form>
-        </div>';
+			   $page['search'] = '';
         $page['right'] = '<div id="col" class="noprint">
             <div id="col-in" >
 
@@ -61,15 +55,7 @@ if($Auth->loggedIn())
 		   elseif ($Auth->level === 'admin') {
 			   //$login = $template->load($page['template_path'].'admin.html', COMMENT) ;
 			   $page['content'] = 'admin logged in';
-			   $page['search'] = '<div id="search" class="noprint">
-            <form action="" method="get">
-                <fieldset><legend>Search</legend>
-                    <label><span class="noscreen">Find:</span>
-                    <span id="search-input-out"><input type="text" name="" id="search-input" size="30" /></span></label>
-                    <input type="image" src="design/search_submit.gif" id="search-submit" value="OK" />
-                </fieldset>
-            </form>
-        </div>';
+			   $page['search'] = '';
         $page['right'] = '<div id="col" class="noprint">
             <div id="col-in" style="height:200px;" >
 
@@ -139,7 +125,9 @@ if($Auth->loggedIn())
     </div> <!-- /page -->';
 					
 				}
-$template->load('template.html',true);
+	//echo 'about to die';			
+	//die ($page['theme_path']);			
+$template->load($page['theme_path'].'templates/index.html',true);
 //$page['content'] = 'this is our content';	
 $template->replace_vars($page);	    
 
