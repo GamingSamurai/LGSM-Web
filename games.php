@@ -123,7 +123,7 @@ if($Auth->loggedIn())
     </div> <!-- /page -->';
 					
 				}
-$template->load('games.html',true);
+$template->load($page['theme_path'].'templates/games.html',true);
 //$page['content'] = 'this is our content';	
 $template->replace_vars($page);	    
 
