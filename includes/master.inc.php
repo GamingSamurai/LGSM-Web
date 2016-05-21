@@ -106,9 +106,9 @@ else {$page['address'] ='';}
     if($Auth->loggedIn()) 
            {
 			 if(!empty($Auth->theme)){  
-					$page['theme_path'] =  DOC_ROOT.'/themes/'.$Auth->theme.'/templates/'.$page['udevice'].'/'; 
-					$page['css_path'] =  $page['path'].'/themes/'.$Auth->theme.'/'; //set the css path bug !
-					$page['template_path'] = $page['theme_path'];
+					//$page['theme_path'] =  DOC_ROOT.'/themes/'.$Auth->theme.'/templates/'.$page['udevice'].'/'; 
+					//$page['css_path'] =  $page['path'].'/themes/'.$Auth->theme.'/'; //set the css path bug !
+					//$page['template_path'] = $page['theme_path'];
 					if ($Auth->level === 'banned') {
 			   //redirect( '/misc.php?action=2');
 		   }
