@@ -37,7 +37,7 @@ function gcp_run_user()
 	case 0:
 	//print_r($Auth);
 	if(empty($Auth->id)) {goto stuff;};	
-	$template->load($page['template_path'].'plugins/gcp.html'); // load your template
+	$template->load($page['template_path'].'gcp.html'); // load your template
 	$installed = shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=getinstalled'");
 	$jim = explode(':',$installed);
 	
@@ -122,6 +122,7 @@ $gameservers[] =  array(
 	$gq->setFilter('normalise');
 	$results = $gq->requestData(); // get the server status back	
 	//add the template to display the server info now we need to loop it
+	$temp['path'] = $page['path'];
 	foreach ($gameresults as $serverlist){
 		if ($results[$serverlist['port']]['gq_online'] == 0) {
 			// we have a tmux session but off line ... server crashed
@@ -138,8 +139,9 @@ $gameservers[] =  array(
 			$temp['vac'] = 'This server does not use Valve Anti Cheat';
 		}
 		
-	$online_row->load($page['template_path'].'plugins/gcp_row.html');
+	$online_row->load($page['template_path'].'gcp_row.html');
 	$demo['total_players'] +=  $results[$serverlist['port']]['gq_numplayers'];
+	$page['total_players'] = $demo['total_players'];
 	$temp['server_type'] =$serverlist['server_type'];
 	$temp['name'] = $results[$serverlist['port']]['gq_hostname'] ;//name($serverlist['server_name']);
 	if (empty($results[$serverlist['port']]['players'])) {
@@ -153,20 +155,22 @@ $gameservers[] =  array(
 	$temp['short_date'] = date("d-m-Y",$serverlist['start_time']);
 	$temp['online'] = $results[$serverlist['port']]['gq_numplayers'];
 	$temp['maxplayers'] = $results[$serverlist['port']]['gq_maxplayers'];
-	$temp['map_image'] = '/images/games/'.$results[$serverlist['port']]['gq_mapname'];
+	$temp['map_image'] = $page['path'].'/images/games/'.$results[$serverlist['port']]['gq_mapname'];
 	$temp['type'] = $serverlist['type']; 
 	$online_row->replace_vars($temp); // add the debug stuff
 	$temp['hostname']=$temp['name'];
 	$temp['map'] = $results[$serverlist['port']]['gq_mapname'];
 	$temp['playlink']= $results[$serverlist['port']]['gq_joinlink'];
 	$demo['test1'].= $online_row->get_template(); //glue the rows in - debug
-	$online_row->load($page['template_path'].'plugins/gcp_a_row.html'); // do the accordian
+	$online_row->load($page['template_path'].'gcp_a_row.html'); // do the accordian
 	$online_row->replace_vars($temp);
 	$demo['sbox'].= $online_row->get_template();
+	$page['sbox'].= $demo['sbox'];
 	$ports ++;
 	$slots += $results[$serverlist['port']]['gq_maxplayers']; 
 }
 stuff:
+//echo 'here is game box<br>'.$page['sbox'];
 	//die();
 	//print_r($gameresults);
 	//echo '<br>';
@@ -174,12 +178,17 @@ stuff:
 	//echo $demo['total_players'];
 	$demo['running'] .= '</select>';
 	//echo 'hello';
-	//$demo['slots'=$slots;
+	//$demo['slots']=$slots;
 	$demo['games'] = sizeFormat(shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=diskspacedused&option=games'")*1024);
+	$page['games']=$demo['games'];
 	$demo['total'] = sizeFormat(shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=diskspacedused&option=total'")*1024);
+	$page['total']=$demo['total'];
 	$demo['web'] = sizeFormat(shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=diskspacedused&option=web'")*1024);
+	$page['web'] = $demo['web'];
 	$demo['totalused'] = sizeFormat(shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=diskspacedused&option=totalused'")*1024);
+	$page['totalused'] = $demo['totalused'];
 	$demo['mail'] = sizeFormat(shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=diskspacedused&option=mail'")*1024);
+	$page['mail']=$demo['mail'];
 	//$used = 'needs to be done';
 	//$demo['used'] = $used.'';
 	//die( 'this is used - '.$used);
@@ -189,12 +198,17 @@ stuff:
 	$demo['name'] = $tb['name']; //ditto
 	$demo['user'] = $Auth->username; // ditto
 	$demo['usedports'] = $ports*3;
+	$page['usedports']=$demo['usedports'];
 	$demo['ownedports'] = $Auth->ports;
+	$page['ownedports'] = $demo['ownedports'];
 	if ($demo['usedports'] >= $demo['ownedports']) { 
-		$demo['usedports'] ='<span style="color:red;">'.$demo['usedports'].'</span>';
+		//$demo['usedports'] ='<span style="color:red;">'.$demo['usedports'].'</span>';
 	}
+	$page['usedports'] = $demo['usedports'];
 	$demo['ownedslots'] = $Auth->slots;
+	$page['ownedslots']=$demo['ownedslots'];
 	$demo['usedslots'] = $slots;
+	$page['usedslots'] = $slots;
 	//$demo['used'] = $used;
 	
 	if (!empty($tb['vetted'])) { $demo['sometext'] .= ' this plugin has passed';} // alter some content
