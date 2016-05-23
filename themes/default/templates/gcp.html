@@ -1,0 +1,58 @@
+<script>
+$( document ).ready(function() {
+    console.log( "ready!" );
+    var str = "test";
+    //setInterval(showUser(str), 60000);
+    setInterval(function() {
+    //console.log("on a fiver");
+    showUser(str);
+}, 5000); //5 seconds
+});
+</script><script>
+function showUser(str) {
+//console.log("started");
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                
+                console.log("response");
+            }
+        }
+        xmlhttp.open("GET","http://lightsoundstudiosuk.co.uk/stats.php",true);
+        xmlhttp.send();
+        console.log("request fired");
+    }
+}
+</script>
+
+<div style="float:left;clear:left;width:100%;height:auto;padding:1.11%;" id="acc">
+<div style ="padding:1%;margin-top:-3.5%;"><div style="font-weight:bold;height:16px;" id="txtHint"><strong></strong></div></div>
+<div style="font-weight:bold;float:left;">Running Games</div><hr style="clear:both">
+  
+                                           
+                                              #sbox#
+
+
+
+<!--<div style="margin-top:3%;clear:left;width:77%;">#installed#</div> -->
+<div style="clear:left;float:left;margin-top:1%;width:77%;"><a class="button" href="http://admin.noideersoftware.co.uk" style="line-height: 20.8px;" title="here to access advanced options" target="_blank">Log in</a><a class="button" href="" style="line-height: 20.8px;" onclick="Location.reload()">Reload</a></div>
+<!-- <div style="margin-top:1%;float:right;margin-right:1%;">#running#</div> -->
+
+
+
+
+
+<div>&nbsp;</div>
+
+</div>
