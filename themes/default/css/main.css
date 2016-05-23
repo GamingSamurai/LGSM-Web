@@ -205,3 +205,37 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
     /* Footer - created by */
     #createdby {position:absolute; top:10px; left:562px; margin:0; color:#8CA3D8;}
     #createdby a {color:#8CA3D8;}
+.button {
+    background:#E5E5E5;
+    display:inline-block;
+    color:#333 !important;
+    font-family:arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:2px 6px;
+    text-decoration:none;
+    border-radius: 8px;
+    border:1px solid #999;
+    margin-left:2%;
+    }
+
+.button:hover {
+    background: #000000;    
+    color:#fff5ee !important;
+    text-decoration: none;
+    border:1px solid #999;
+}
+
+.button:active {
+    position:relative;
+    top:1px;
+}
+
+.button a:link {
+	font: 11px/1.6 Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
+	text-decoration: none;
+}
+
+.button  a:active a:hover {
+        text-decoration: none;
+}
