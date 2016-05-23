@@ -11,7 +11,7 @@
     if (!defined('DOC_ROOT')) {
     define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
 }
-
+//echo '<br>about to start';
     // Global include files
     //require DOC_ROOT . '/includes/class.uaparser.php';
     $test= file_get_contents (DOC_ROOT.'/includes/settings.php');
@@ -79,14 +79,14 @@ else {$page['address'] ='';}
     $detect = new Mobile_Detect;
     $isMobile = $detect->isMobile();
     $isTablet = $detect->isTablet();
-    
+    //echo '<br>about to detect device';
     $page['device'] = ($isMobile ? ($isTablet ? 'tablet' : 'mobile') : 'desktop');
     //$page['device'] = 'tablet';
     $page['udevice']=$page['device'];
-    //$site->settings['template_path'] = DOC_ROOT.'/templates/'.$page['device'].'/'; // set the templates for the device
+    //$site->settings['template_path'] = DOC_ROOT.'/templates/'.$page['device'].'/'; // set the templates for the device 
     $page['theme_path'] =  DOC_ROOT.'/themes/'.$site->settings['theme_path'].'/'; //set the css path bug ! 
     $page['css_path'] =  $page['path'].'/themes/'.$site->settings['theme_path'].'/'; //set the css path bug ! 
-    $page['template_path'] = $page['theme_path'].'/templates/'.$page['udevice'].'/'; // set the templates for the device
+    $page['template_path'] = $page['theme_path'].'/templates/'; // set the templates for the device
     if ($site->settings['show_device'] <> "1"){$page['device'] = "";}
 	 else {$page['device'] = '('.$page['device'].')';}
 //echo '<br>loaded thus far'; 
@@ -99,7 +99,7 @@ else {$page['address'] ='';}
         $_COOKIE  = fix_slashes($_COOKIE);
     }
 
-
+//echo ' ....done<br>Start Auth';
     $Auth = Auth ::getAuth();
     //print_r($Auth);
     //die();
@@ -124,25 +124,28 @@ if($site->settings['siteclosed'] === "1" & $Auth->level <>'admin') {
 	
 }
 
-
+//echo ' ... done<br> Starting Session';
       if($site->settings['session'] === "0") 
       { 
 		 
         DBSession::gc (CLEAR); // delete old sessions depends on settings if no sql events do this line 
-        
+        echo '<br> cleared old';
        }
        
     // Initialize our session
+        //echo '<br> Register session';
 		DBSession::register(); // register the session
 		//session_name('yoursite');
-		session_start();
+		//session_start();
 	    $id = session_id();
 	    $_SESSION['userid'] = intval($Auth->id);
 	    $_SESSION['nid'] = $Auth->nid;
 	    $_SESSION['steamid'] = '';
-	    DBSession::read ($id);
+	    //DBSession::read ($id);
+	   // echo ' ...Done';
 	  //print_r($_SESSION);
     // Object for tracking and displaying error messages
     //$Error = Error::getError();
+    //echo ' ...done<br>starting plugins';
     $our_plugin = new plugin;
   // echo '<br> include done';
