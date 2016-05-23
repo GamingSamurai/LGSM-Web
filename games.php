@@ -8,13 +8,16 @@
  */ 
  
 require 'includes/master.inc.php'; // do login and stuff
+include 'includes/plugins/gcp.php';
+//print_r(gcp_info());
 // here would should define all areas/modules currently it is manual !
-
+gcp_run_user();
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
 $start = $time;
 $template = new Template;
+//$our_plugin->get_plugins(basename($_SERVER['PHP_SELF']));
 if($Auth->loggedIn()) 
            {
 			  
@@ -29,27 +32,10 @@ if($Auth->loggedIn())
 			   //$login = $template->load($page['template_path'].'member.html', COMMENT);
 			   $page['content'] = 'user loged in on games tab';
 			   $page['search'] = '';
-        $page['right'] = '<div id="col" class="noprint">
-            <div id="col-in" >
-
-                <!-- Links -->
-                <h3 style="text-align:center;background:#192666;color:#fff;"><span>Games</span></h3>
-
-                <!--<ul id="links">
-                    <li><a href="http://www.virtualmin.com/">Virtualmin</a></li>
-                    <li><a href="http://www.webmin.com/">Webmin</a></li>
-                </ul>
-
-                <hr class="" /> -->
-            <div id="links" style="min-height:100px;padding:5%;">
-                    status box here user games
-                </div>
-            </div> <!-- /col-in -->
-        </div> <!-- /col -->
-
-    </div> <!-- /page-in -->
-    </div> <!-- /page -->';
-		   }
+               $template->load($page['template_path'].'status_box.html');
+               $template->replace_vars($page);
+               $page['right'] = $template->get_template();
+               		   }
 		   elseif ($Auth->level === 'admin') {
 			   //$login = $template->load($page['template_path'].'admin.html', COMMENT) ;
 			   $page['content'] = 'admin logged in';
@@ -124,7 +110,9 @@ if($Auth->loggedIn())
 					
 				}
 $template->load($page['theme_path'].'templates/games.html',true);
-//$page['content'] = 'this is our content';	
+//$page['content'] = 'this is our content';
+//print_r($page);
+//die();	
 $template->replace_vars($page);	    
 
 //$template->replace("xx",FORMAT_TIME);
