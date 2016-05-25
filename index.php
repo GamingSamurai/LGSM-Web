@@ -6,11 +6,12 @@
  * COMMENT in the template->load function uses the default setting
  * replace COMMENT with either true or false to over ride this
  */ 
-//echo 'about to include'; 
+echo 'about to include'; 
 require 'includes/master.inc.php'; // do login and stuff
-//echo '<br>included'; 
+echo '<br>included'; 
 // here would should define all areas/modules currently it is manual !
-//	echo 'about to die';			
+//	echo 'about to die';
+	
 	//die ($page['theme_path']);			
 $time = microtime();
 $time = explode(' ', $time);

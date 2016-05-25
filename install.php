@@ -82,7 +82,7 @@ if($Auth->loggedIn())
 
                 <hr class="" /> -->
             <div id="links" style="min-height:100px;padding:5%;">
-                    status box here using games
+                    status box here using install
                 </div>
             </div> <!-- /col-in -->
         </div> <!-- /col -->
