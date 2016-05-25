@@ -22,6 +22,7 @@ function gcp_run_user()
 	require DOC_ROOT.'/includes/functions_admin.php';
 	require DOC_ROOT.'/gameq-2/GameQ.php';
 	$gq = new GameQ(); 
+	$page['sbox'] = 'hello there'; 
 	$area = 0; //the module you wish to run the plugin on you can use this in the later switch statements
 	$template = new Template; // load a template class    note all classes are open to all plugins
 	switch (AREA)
@@ -36,6 +37,7 @@ function gcp_run_user()
 		 */  
 	case 0:
 	//print_r($Auth);
+	
 	if(empty($Auth->id)) {goto stuff;};	
 	$template->load($page['template_path'].'gcp.html'); // load your template
 	$installed = shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=getinstalled'");

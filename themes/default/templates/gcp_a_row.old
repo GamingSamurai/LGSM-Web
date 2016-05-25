@@ -1,12 +1,12 @@
-<div class="collapsible collapsed" style="margin:0;width:100%">
-                                                    
-         <div style="clear:both;"><span style="float:left;"><image style="width:50px;" src="#path#/images/#type#-logo.png" /></span></div>
-<div style="float:left;margin-left:5%;width:40%"><!--#hostname#--><div style="float:right;margin-right:5%;"><!--#online#-->/<!--#maxplayers#--></div> 
-<div style="clear:both;"><!--player count--><!--#player_list#--></div>
-</div>
-<div style="float:right;width:30%;padding-bottom:1%;padding-right:1%;"><img style="width:100%;margin-left:0;border-radius:3%;border:1px solid red;" title="current map: #map#" src ="#map_image#.png" /></div>
-
-                                                        
+<div class="collapsible collapsed" style="margin:0;">
+                                                    <!--<div class="header collapse-trigger" style="background-color: #66ff66;">
+                                                        <span class="icon icon-collapse color-black" style="float:left;"></span>
+                                                        <a href="#" style="color:#fff">
+                                                            <div class="collapsed-only"><div style="float:left;color:#262626;"><image style="width:50px;" src="#path#/images/#type#-logo.png" /><!--#hostname# - #server_type#</div>
+<span style="float:right;color:#262626">Started <!--#short_date#--> (<!--#online#-->/<!--#maxplayers#)</span></span>-->
+                                                            <span class="uncollapsed-only"><span style="float:left;"><image style="width:16px;" src="#path#/images/#type#-logo.png" /><!--#hostname#--></span>
+<!--<span style="float:right;">Running</span></span>-->
+                                                        </a>
                                                     </div>
                                                     <div class="body collapse-section" style="overflow:visible; border-width:1px;">
                                                           <div style="padding:5px; margin-left:1%;"> 
@@ -37,14 +37,6 @@
 <div style="float:right;margin-right:5%;"> <img style="height:28px;" src="#path#/images/games/vac.png" /></div>
 
 </div> 
- </div>
-<div style= "padding:1%;clear:both;text-align:center;">
-	<a class="button" href="#" onclick="alert('hello')">Stop</a>
-	<a class="button" href="#">Restart</a>
-	<a class="button" href="#">Edit</a>
-	<a class="button" href="#">Console</a>
-	<a class="button" href="#">Banners</a>
-	<a class="button" href ="#playlink#">Join Game</a>
-</div>
-   <hr>                                                     
+ </div><div style= "padding:1%"><a class="button" href="#">Stop</a><a class="button" href="#">Restart</a><a class="button" href="#">Edit</a><a class="button" href="#">Console</a><a class="button" href="#">Banners</a><a class="button" href ="#playlink#">Join Game</a></div>
+                                                        
                                                    </div>
