@@ -9,9 +9,10 @@
  
 require 'includes/master.inc.php'; // do login and stuff
 include 'includes/plugins/gcp.php';
-//print_r(gcp_info());
+//menu_items(7,4);
+
 // here would should define all areas/modules currently it is manual !
-gcp_run_user();
+//gcp_run_user();
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
@@ -28,9 +29,11 @@ if($Auth->loggedIn())
 			   
 			   
 			   if ($Auth->level === 'user') {
-				  				   
+				menu_items(2);  				   
 			   //$login = $template->load($page['template_path'].'member.html', COMMENT);
-			   $page['content'] = 'user loged in on games tab';
+			   $page['content'] = gcp_run_user();
+			   //echo 'content = '.$page['content'];
+			   //die();
 			   $page['search'] = '';
                $template->load($page['template_path'].'status_box.html');
                $template->replace_vars($page);
@@ -38,6 +41,7 @@ if($Auth->loggedIn())
                		   }
 		   elseif ($Auth->level === 'admin') {
 			   //$login = $template->load($page['template_path'].'admin.html', COMMENT) ;
+			   menu_items(4); 
 			   $page['content'] = 'admin logged in';
 			   $page['search'] = '';
         $page['right'] = '<div id="col" class="noprint">
@@ -69,23 +73,7 @@ if($Auth->loggedIn())
 					$name ="Guest";
 					//$login = $template->load($page['template_path'].'guest.html', COMMENT) ;
 					$level = 'guest';
-					$page['content']= 'you need to login in order to use this site, if you don\'t have your login ID contact your service providor or login below <form method="post" action="login.php" id="input">
-                                <div class="column left" style="width:50%;float:left;">
-                                    <p><label for="username" style="width:30%">Username</label>
-                                        <input type="text" name="username" id="username" size="35" style = "width:50%;display:inline" value="">
-                                        
-                                    </p>
-                                    <p><label for="Password">Password   </label>
-                                        <input type="password"  name="password" id="password" style = "width:50%;display:inline"  value="">
-                                        <br><span class="validation" style="margin-left:20%;"> passwords are case sensitive</span>
-                                    </p>
-                                   
-                                </div>
-                               
-                                <div class="clear"></div>
-                                <p style ="margin-left:13%;padding-bottom:4%;"><button type="submit" class="button" name="btnlogin" id="input" value="Login">Login</button> 
-                                </p>
-                            </form>';
+					$page['content']= $template->load($page['template_path'].'workers/login.html');
 					$page['search'] = '';
 					$page['right'] = '<div id="col" class="noprint">
             <div id="col-in" >
@@ -109,7 +97,7 @@ if($Auth->loggedIn())
     </div> <!-- /page -->';
 					
 				}
-$template->load($page['theme_path'].'templates/games.html',true);
+$template->load($page['theme_path'].'templates/template.html',true);
 //$page['content'] = 'this is our content';
 //print_r($page);
 //die();	
