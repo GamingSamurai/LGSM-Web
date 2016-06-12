@@ -42,6 +42,9 @@ if($Auth->loggedIn())
 			   if ($Auth->level === 'user') {
 				  				   
 			   //$login = $template->load($page['template_path'].'member.html', COMMENT);
+			   menu_items(2);
+			   echo 'page menus '.$page['menu'];
+			   die();
 			   $page['content'] = 'user loged in on games tab';
 			   $page['search'] = '';
         $page['right'] = '<div id="col" class="noprint">
@@ -69,6 +72,7 @@ if($Auth->loggedIn())
 			   //$login = $template->load($page['template_path'].'admin.html', COMMENT) ;
 			   $page['content'] = 'admin logged in';
 			   $page['search'] = '';
+			   menu_items(4);
         $page['right'] = '<div id="col" class="noprint">
             <div id="col-in" style="height:200px;" >
 
