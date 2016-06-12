@@ -1014,3 +1014,33 @@ function ban_check ($user)
 		   }
 		   return;
 	   }
+function menu_items ($level) 
+{
+	// build top level menu
+	global $page, $database;
+	$template = new Template;
+	$temp = $template->load($page['template_path'].'workers/menu.html');
+	$sql = 'select name, link from menus where level<='.$level;
+	$menu = $database->get_results($sql);
+	foreach ($menu as $item) {
+		//
+		$template->load($page['template_path'].'workers/menu.html');
+		
+	    if ($page['path'].$item['link'] === $_SERVER['SCRIPT_URI'] ) {
+			//echo '<br> found item<br>';
+			$item['id'] ='active';
+			
+		} 
+		elseif ($_SERVER['SCRIPT_URL'] === '/' and $set == 0) {
+			// set to index.php
+			$item['id'] = 'active';
+			$set++;
+		}
+		else { $item['id'] ='';}
+		$template->replace_vars($item);
+		$page['menu'] .=$template->get_template();	
+	}
+	$item['link'] = $page['path'].$item['link'];
+	
+		
+}
