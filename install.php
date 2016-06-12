@@ -40,18 +40,15 @@ if($Auth->loggedIn())
 			   
 			   
 			   if ($Auth->level === 'user') {
-				  				   
+				  	menu_items(2);			   
 			   //$login = $template->load($page['template_path'].'member.html', COMMENT);
-			   menu_items(2);
-			   echo 'page menus '.$page['menu'];
-			   die();
-			   $page['content'] = 'user loged in on games tab';
+			   $page['content'] = $template->load($page['theme_path'].'templates/install_c.html',true);
 			   $page['search'] = '';
         $page['right'] = '<div id="col" class="noprint">
             <div id="col-in" >
 
                 <!-- Links -->
-                <h3 style="text-align:center;background:#192666;color:#fff;"><span>Games</span></h3>
+                <h3 style="text-align:center;background:#192666;color:#fff;"><span>Installed Games</span></h3>
 
                 <!--<ul id="links">
                     <li><a href="http://www.virtualmin.com/">Virtualmin</a></li>
@@ -70,9 +67,9 @@ if($Auth->loggedIn())
 		   }
 		   elseif ($Auth->level === 'admin') {
 			   //$login = $template->load($page['template_path'].'admin.html', COMMENT) ;
+			   menu_items(4);
 			   $page['content'] = 'admin logged in';
 			   $page['search'] = '';
-			   menu_items(4);
         $page['right'] = '<div id="col" class="noprint">
             <div id="col-in" style="height:200px;" >
 
@@ -86,7 +83,7 @@ if($Auth->loggedIn())
 
                 <hr class="" /> -->
             <div id="links" style="min-height:100px;padding:5%;">
-                    status box here using install
+                    status box here using games
                 </div>
             </div> <!-- /col-in -->
         </div> <!-- /col -->
