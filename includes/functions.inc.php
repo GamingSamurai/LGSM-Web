@@ -1022,13 +1022,20 @@ function menu_items ($level)
 	$temp = $template->load($page['template_path'].'workers/menu.html');
 	$sql = 'select name, link from menus where level<='.$level;
 	$menu = $database->get_results($sql);
+	if(!$_SERVER['SCRIPT_URI']) { 
+		//echo '<br>huston<br>';
+		$_SERVER['SCRIPT_URI'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+		//echo $_SERVER['SCRIPT_URI'];
+		}
 	foreach ($menu as $item) {
 		//
+		
 		$template->load($page['template_path'].'workers/menu.html');
 		
 	    if ($page['path'].$item['link'] === $_SERVER['SCRIPT_URI'] ) {
-			//echo '<br> found item<br>';
+			//echo '<br> found item'.$page['path'].$item['link'].'<br>';
 			$item['id'] ='active';
+			$item['link'] = $page['path'].$item['link'];
 			
 		} 
 		elseif ($_SERVER['SCRIPT_URL'] === '/' and $set == 0) {
@@ -1037,10 +1044,11 @@ function menu_items ($level)
 			$set++;
 		}
 		else { $item['id'] ='';}
+		$item['link'] = $page['path'].$item['link'];
 		$template->replace_vars($item);
 		$page['menu'] .=$template->get_template();	
 	}
-	$item['link'] = $page['path'].$item['link'];
+	
 	
 		
 }
