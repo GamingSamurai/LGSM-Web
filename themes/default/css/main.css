@@ -217,6 +217,7 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
     border-radius: 8px;
     border:1px solid #999;
     margin-left:2%;
+    
     }
 
 .button:hover {
@@ -229,6 +230,7 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
 .button:active {
     position:relative;
     top:1px;
+    outline:none;
 }
 
 .button a:link {
@@ -238,4 +240,16 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
 
 .button  a:active a:hover {
         text-decoration: none;
+}
+.button:focus {
+	outline:none;
+}
+.alertify.attach {
+           border: 10px solid #2D3538;
+           width: 60%;
+           left: 36%;
+           top:30%;
+}      
+.alertify-dialog.attach {
+	padding:none;
 }
