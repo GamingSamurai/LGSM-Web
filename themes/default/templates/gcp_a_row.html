@@ -1,10 +1,10 @@
 <div class="collapsible collapsed" style="margin:0;width:100%">
                                                     
-         <div style="clear:both;"><span style="float:left;"><image style="width:50px;" src="#path#/images/#type#-logo.png" /></span></div>
+         <div style="clear:both;"><span style="float:left;"><img style="width:50px;" src="#path#/images/#type#-logo.png" / title="running Since :- #start_time#"></span></div>
 <div style="float:left;margin-left:5%;width:40%"><!--#hostname#--><div style="float:right;margin-right:5%;"><!--#online#-->/<!--#maxplayers#--></div> 
-<div style="clear:both;"><!--player count--><!--#player_list#--></div>
+<div style="clear:both;padding-bottom:1%;"><!--player count--><!--#player_list#--></div>
 </div>
-<div style="float:right;width:30%;padding-bottom:1%;padding-right:1%;"><img style="width:100%;margin-left:0;border-radius:3%;border:1px solid red;" title="current map: #map#" src ="#map_image#.png" /></div>
+<div style="float:right;width:30%;padding-bottom:1%;padding-right:1%;"><img style="width:100%;margin-left:0;border-radius:3%;border:1px solid blue;" title="current map: #map#" src ="#map_image#.png" /></div>
 
                                                         
                                                     </div>
@@ -39,9 +39,9 @@
 </div> 
  </div>
 <div style= "padding:1%;clear:both;text-align:center;">
-	<a class="button" href="#" onclick="alert('hello')">Stop</a>
-	<a class="button" href="#">Restart</a>
-	<a class="button" href="#">Edit</a>
+	<a class="button" href="#" onclick="stop('#port#','#file#','#gpath#')">Stop</a>
+	<a class="button" href="#" onclick="restart('#port#','#file#','#gpath#')">Restart</a>
+	<a class="button" href="#" onclick="alertify.alert('Please Stop the server before edit')" >Options</a>
 	<a class="button" href="#">Console</a>
 	<a class="button" href="#">Banners</a>
 	<a class="button" href ="#playlink#">Join Game</a>
