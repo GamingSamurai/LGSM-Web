@@ -8,9 +8,9 @@
  */ 
  
 require 'includes/master.inc.php'; // do login and stuff
-include 'includes/plugins/gcp.php';
+include 'includes/plugins/gcp2.php';
 //menu_items(7,4);
-
+//die();
 // here would should define all areas/modules currently it is manual !
 //gcp_run_user();
 $time = microtime();
@@ -31,10 +31,12 @@ if($Auth->loggedIn())
 			   if ($Auth->level === 'user') {
 				menu_items(2);  				   
 			   //$login = $template->load($page['template_path'].'member.html', COMMENT);
-			   $page['content'] = gcp_run_user();
+			   $page['content'] = get_games();
 			   //echo 'content = '.$page['content'];
 			   //die();
 			   $page['search'] = '';
+			   $page['server'] = $site->settings['game_server'];
+			   $page['user']=$name;
                $template->load($page['template_path'].'status_box.html');
                $template->replace_vars($page);
                $page['right'] = $template->get_template();
