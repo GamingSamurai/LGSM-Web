@@ -128,20 +128,20 @@ if($site->settings['siteclosed'] === "1" & $Auth->level <>'admin') {
       if($site->settings['session'] === "0") 
       { 
 		 
-        //DBSession::gc (CLEAR); // delete old sessions depends on settings if no sql events do this line 
+        DBSession::gc (CLEAR); // delete old sessions depends on settings if no sql events do this line 
         echo '<br> cleared old';
        }
        
     // Initialize our session
         //echo '<br> Register session';
 		DBSession::register(); // register the session
-		//session_name('yoursite');
+		session_name('gamecp');
 		//session_start();
-	    //$id = session_id();
-	    //$_SESSION['userid'] = intval($Auth->id);
-	    //$_SESSION['nid'] = $Auth->nid;
-	    //$_SESSION['steamid'] = '';
-	    //DBSession::read ($id);
+	    $id = session_id();
+	    $_SESSION['userid'] = intval($Auth->id);
+	    $_SESSION['nid'] = $Auth->nid;
+	    $_SESSION['steamid'] = '';
+	    DBSession::read ($id);
 	   // echo ' ...Done';
 	  //print_r($_SESSION);
     // Object for tracking and displaying error messages

@@ -4,7 +4,7 @@
  *
  */
 $config['database']['type'] = 'mysqli';
-$config['database']['database'] = 'yoursite';
+$config['database']['database'] = 'noideergames';
 $config['database']['table_prefix'] = '';
 $config['database']['hostname'] = 'localhost';
 $config['database']['username'] = '1612';

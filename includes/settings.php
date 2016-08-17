@@ -12,7 +12,7 @@ $settings['paypal_email'] = "name@domain.com";
 $settings['avataruploadpath'] = "/uploads/avatars";
 $settings['siteclosed'] = "0";
 $settings['siteclosed_url'] = "https://google.co.uk";
-$settings['sitename'] = "Game Control Panel";
+$settings['sitename'] = "Your Game Control Panel";
 $settings['use_address'] = "0";
 $settings['address_street'] = "";
 $settings['address_city'] = "";
@@ -42,4 +42,5 @@ $settings['cookie_url'] = "/misc.php?action=27015";
 $settings['disable_plugin'] = "0";
 $settings['new_posts'] = "5";
 $settings['olark_key'] = "";
+$settings['game_server'] = "http://lightsoundstudiosuk.co.uk"; 
 ?>

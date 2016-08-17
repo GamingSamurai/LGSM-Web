@@ -22,7 +22,13 @@ function gcp_run_user()
 	require DOC_ROOT.'/includes/functions_admin.php';
 	require DOC_ROOT.'/gameq-2/GameQ.php';
 	$gq = new GameQ(); 
-	$page['sbox'] = 'hello there'; 
+	$page['sbox'] = 'hello there';
+	//$demo['sbox'] = 'hello';
+	$sql = "select * from games where uid = ".$Auth->id." and active = 1"; // get servers for this user 
+	$astats = $database->get_results($sql);
+	//print_r($site);
+	//echo 'settings '.$settings['game_server'];
+	
 	$area = 0; //the module you wish to run the plugin on you can use this in the later switch statements
 	$template = new Template; // load a template class    note all classes are open to all plugins
 	switch (AREA)
@@ -40,9 +46,9 @@ function gcp_run_user()
 	
 	if(empty($Auth->id)) {goto stuff;};	
 	$template->load($page['template_path'].'gcp.html'); // load your template
-	$installed = shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=getinstalled'");
+	$installed = shell_exec("wget -O - --quiet --no-check-certificate '".$settings['game_server']."/exc.php?user=".strtolower($Auth->username)."&action=getinstalled'");
 	$jim = explode(':',$installed);
-	
+	//print_r ($jim);
 	$demo['installed'] = 'Edit an installed Server &nbsp;<select class="text"><option>Choose Server</option>';
 	foreach ($jim as $expire) {
 	if (empty($expire)) {break;}
@@ -59,7 +65,7 @@ function gcp_run_user()
 	$demo['install'].= '<option value ="'.$expire.'">'.$expire.'</option>';
 	}
 	$demo['install'] .= '</select>';
-	$running = shell_exec("wget -O - --quiet --no-check-certificate 'http://lightsoundstudiosuk.co.uk/exc.php?user=".strtolower($Auth->username)."&action=running'");
+	$running = shell_exec("wget -O - --quiet --no-check-certificate '".$settings['game_server']."/exc.php?user=".strtolower($Auth->username)."&action=running'");
 	$jim = explode(';',$running);
 	//usort($jim, "cmp");
 	$online_row = new Template;
@@ -90,14 +96,14 @@ function gcp_run_user()
 $gameservers=array();
 $gameresults=array();
 foreach ($xs as $serverlist) {
-	$sql = "select from games where uid = ".$Auth->id." and port = ".$serverlist['port']." and active = 1"; // get paid for server
+	
 	//echo $sql;
 	$servers = array(
     array(
     'id' => $serverlist['port'],
     'type' =>'source', 
     'host' =>'noideersoftware.uk:'.$serverlist['port']),
-       
+      
 );
 $gameservers[] =  array(
     'id' => $serverlist['port'],
@@ -123,6 +129,7 @@ $gameservers[] =  array(
     $gq->setOption('timeout', 2); // Seconds
 	$gq->setFilter('normalise');
 	$results = $gq->requestData(); // get the server status back	
+	//print_r($results);
 	//add the template to display the server info now we need to loop it
 	$temp['path'] = $page['path'];
 	foreach ($gameresults as $serverlist){
@@ -131,6 +138,15 @@ $gameservers[] =  array(
 			echo 'Server Crashed Restarting '.strtolower($Auth->username).'/'.$serverlist['port'] ;
 			
 		}
+		//array_column($records, 'first_name');
+		if (in_array($results[$serverlist['port']]['gq_port'], array_column($astats,'port'))) {
+              //echo "Got record<br>";
+}
+		 if( $key = array_search($results[$serverlist['port']]['gq_port'], array_column($astats, 'port')) == !false) {
+		//echo 'key = '.$key. ' remove port '.$serverlist['port'].'<br>';
+		$stopped[] = $astats[$key];
+}
+
 		if ($results[$serverlist['port']]['secure'] == 1) {
 			// get secure
 			//echo $results[$serverlist['port']]['gq_hostname'].' is vac secure<br>';
@@ -140,7 +156,9 @@ $gameservers[] =  array(
 			//echo $results[$serverlist['port']]['gq_hostname'].' is not vac secure<br>';
 			$temp['vac'] = 'This server does not use Valve Anti Cheat';
 		}
-		
+		// if(($key = array_search($serverlist['port'], $astats)) !== false) {
+    //unset($astats[$key]);
+   //}
 	$online_row->load($page['template_path'].'gcp_row.html');
 	$demo['total_players'] +=  $results[$serverlist['port']]['gq_numplayers'];
 	$page['total_players'] = $demo['total_players'];
@@ -171,6 +189,9 @@ $gameservers[] =  array(
 	$ports ++;
 	$slots += $results[$serverlist['port']]['gq_maxplayers']; 
 }
+
+//echo count($stopped);
+//print_r($s);
 stuff:
 //echo 'here is game box<br>'.$page['sbox'];
 	//die();
@@ -217,6 +238,8 @@ stuff:
 	else { $demo['sometext'] .= ' this plugin as no vet';} 
 	$template->replace_vars($demo);  // place the content into the display array 
 	$page['gcp'] = $template->get_template(); // add your plugin template to the main page
+	//$page['gcp'] ='here we are';
+	return $page['gcp'];
 	break;
 	
 	case 2:
@@ -273,6 +296,7 @@ function name ($option)
 }
 function get_gameq($user) {
 		global $Auth,$database;
+		// this sets up none running games
 		$sql = "SELECT games.*, users.username FROM `games` left join users on uid = users.id WHERE users.id =" .$Auth->id;
 		$games = $database->get_results($sql); //
 	}
@@ -282,14 +306,14 @@ function get_gameq($user) {
 }
 	function get_player_data($content) {
 		// draw the player data
-		foreach ($content as $players) {
+		foreach ($content as $player) {
 			// do stuff
 			//echo 'Player '.$players['name'].'<br>';
-			$test .= '<div style="float:left;width:88%;clear:both;">'.$players['name'].'</div>
-			<div style="float:left;width:8%;text-align:right;margin-right:1%">'.$players['score'].'</div>';
+			$players .= '<div style="float:left;width:88%;clear:both;">'.$player['name'].'</div>
+			<div style="float:left;width:8%;text-align:right;margin-right:1%">'.$player['score'].'</div>';
 		}
 		//echo 'hit the player data thingy<br>';
 		//echo $test;
-		return $test;
+		return $players;
 	}
 ?>

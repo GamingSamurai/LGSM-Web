@@ -11,23 +11,23 @@
  * 3) run functions
 */  
 
-function agcp_info()
+function test_info()
 {
 		return array(
-		"name"          => 'Admin Game Control Panel',
-		"description"   => 'Adds Game Server control for the Admin',
+		"name"          => 'Test Plugin',
+		"description"   => 'This a test plugin to test the plugin class',
 		"download_url"  => 'http://noideersoftware.co.uk/downloads',
 		"author"        => 'NoIdeer Software',
 		"authorsite"    => 'http://noideersoftware.org.uk',
-		"version"       => '1.0.0.0',
+		"version"       => '1.1.0.7',
 		"vetted"        => '1',
 		"run_on"        => '1.*',
-		"returns"       => '#agcp#'
+		"returns"       => '#plugin#'
 	);
 	
 }
 
-function agcp_install()
+function test_install()
 {
 	// you need to add the global database handler
 	global $database;
@@ -35,7 +35,7 @@ function agcp_install()
 	
 }
 
-function agcp_run_index()
+function test_run_index()
 {
 	// each run function needs a tail in this example it is the index file
 	global $page, $database, $settings; // add the output variable ... curently $page note we have used the existing database/settings classes rather than a new ones  
@@ -58,7 +58,7 @@ function agcp_run_index()
 	$demo['version'] = ''; //create your template array
 	$demo['name'] = ''; //ditto
 	$demo['sometext'] = 'Status'; // ditto
-	if (!empty($tb['vetted'])) { $demo['sometext'] .= ' this Site runs on the NoIdeer Network (Admin)';} // alter some content
+	if (!empty($tb['vetted'])) { $demo['sometext'] .= ' this Site runs on the NoIdeer Network';} // alter some content
 	else { $demo['sometext'] .= ' this plugin as no vet';} 
 	$template->replace_vars($demo);  // place the content into the display array 
 	$page['plugin'] = $template->get_template(); // add your plugin template to the main page
@@ -74,20 +74,18 @@ function agcp_run_index()
 } 
 }
 
-function agcp_disabled()
+function test_disabled()
 {
 	global $page;
 	$page['plugin'] = "";
 	
 }
 
-function agcp_run_admin()
+function test_run_admin()
 {
 	// what to do if the plugin runs on the admin script
 	//echo 'we are here';
 	global $page, $database, $settings;
-	$template = new Template;
-	$page['agcp'] = 'we could add the game server stuff here now the plugin is on';
-	//echo 'hit the kit !'; 
+	$page['plugin'] = 'we could add the game server stuff'; 
 }
 ?>
