@@ -12,11 +12,145 @@
     <title>#title#</title>
     <meta name="description" content="..." />
     <meta name="keywords" content="..." />
-    
-    <link rel="index" href="./" title="Home" />
-    <link rel="stylesheet" media="screen,projection" type="text/css" href="./css/main.css" />
-    <link rel="stylesheet" media="print" type="text/css" href="./css/print.css" />
-    <link rel="stylesheet" media="aural" type="text/css" href="./css/aural.css" />
+     <link rel="stylesheet" media="screen,projection" type="text/css" href="#css_path#css/main.css" />
+    <link rel="stylesheet" media="print" type="text/css" href="#css_path#/css/print.css" />
+    <link rel="stylesheet" media="aural" type="text/css" href="#css_path#/css/aural.css" />
+    <link rel="stylesheet" href="#css_path#css/alertify.core.css"> 
+    <link rel="stylesheet" href="#css_path#css/alertify.default.css" id="toggleCSS">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+    <script src="#path#/js/alertify.js" type="text/javascript"></script>	
+    <script>
+         $(document).ready(function(){
+ 		  timer=setInterval(function(){cache_clear()},45000);
+ 	}); 
+ function cache_clear()
+{
+ window.location.reload(true);
+}
+	function stop(port,file,path){
+		
+		if (port == "") {
+        document.getElementById("txtHint").innerHTML = "Checking Game Server";
+        return;
+    } else { 
+        clearInterval(timer);
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            stop = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            stop = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        stop.onreadystatechange = function() {
+            if (stop.readyState == 4 && stop.status == 200) {
+                document.getElementById("stopped").innerHTML = stop.responseText;
+                
+                console.log("response from stop");
+                message = 'Server Stopped';  
+                //alert(message); 
+                 alertify.alert(message);
+                 cache_clear();  
+                //window.reload;
+            }
+        }
+        
+        stop.open("GET","#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&gpath="+path+"&action=stop",true);
+        stop.send();
+        console.log("request fired from stop");
+        document.getElementById("txtHint").innerHTML = "Modifiying Game Server"; 
+        document.getElementById("stopped").innerHTML = file;
+        message ='Stopping Server '+ file;
+        //alert(message);
+        alertify.alert(message);  
+        //setTimeout(window.reload, 600000);
+        //alert ('waiting');
+    }
+	}
+	function start(port,file,path){
+             //alert(file);
+		
+		if (port == "") {
+        document.getElementById("txtHint").innerHTML = "Checking Game Server";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            start = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            start = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        start.onreadystatechange = function() {
+            if (start.readyState == 4 && start.status == 200) {
+                document.getElementById("stopped").innerHTML = start.responseText;
+                
+                console.log("response from start");
+                //alert ('response from server');
+                message ='Server Started, be aware that this server may not show in your server listing for over a minuite dependant on server configuration';
+                alertify.set({
+				labels : {
+					ok     : "OK",
+					cancel : "Finish"
+				},
+				delay : 2000,
+				buttonReverse : true,
+				buttonFocus   : "ok"
+			});   
+                alertify.alert(message);
+                //window.location.reload();
+            }
+        }
+        cmd = '"#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&action=start&gpath=+path"';
+        //alert (cmd);   
+        start.open("GET","#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&gpath="+path+"&action=start",true);
+        start.send();
+        //setTimeout(function(){ alert("Hello"); }, 3000);
+        console.log("request fired from start");
+        document.getElementById("txtHint").innerHTML = "Modifiying Game Server"; 
+        document.getElementById("stopped").innerHTML = file;
+        //alert('Starting Server '+ str);
+          //alert ('waiting');
+    }
+}	
+function Alert(port,file,gpath) {
+//event.preventDefault();
+ message = '<iframe src ="#path#/options.php?port='+port+'&file='+file+'&path='+gpath+'" style="border:0;width:100%;height:220px;overflow:hidden;width:99%" scrolling="no"></iframe> ';
+	
+	alertify.set({
+				labels : {
+					ok     : "Start Server",
+					cancel : "Quit"
+				},
+				delay : 2000,
+				buttonReverse : true,
+				buttonFocus   : "ok"
+			});
+		clearInterval(timer);
+                   
+	alertify.confirm(message, function(e) {
+		if (e) {
+            // user clicked "ok"
+            //$( "#result" ).load( "ajax/test.html" );
+                 alertify.alert('Could not load due to no free ports');
+                //alert ("loaded " + file);
+		 start(port,file,gpath)               
+            alertify.success("Starting Server "+file);
+            
+             timer=setInterval(function(){cache_clear()},45000);
+              
+           
+            
+        } 
+        
+        else {
+            // user clicked "cancel"
+            alertify.error("Server "+file+" not started" );
+            timer=setInterval(function(){cache_clear()},45000);
+        }
+								}, 'attach');
+	}	
+	
+</script>  
 </head>
 
 <body id="www-url-cz">
@@ -47,11 +181,7 @@
 
             <h3 class="noscreen">Navigation</h3>
             <ul class="box">
-                <li id="active"><a href="#path#/index.php">Home<span class="tab-l"></span><span class="tab-r"></span></a></li> <!-- Active -->
-                <li><a href="#path#/games.php">Games<span class="tab-l"></span><span class="tab-r"></span></a></li> 
-                <li><a href="contact.html">Install<span class="tab-l"></span><span class="tab-r"></span></a></li>
-                <li><a href="support.html">Support<span class="tab-l"></span><span class="tab-r"></span></a></li>
-                <li><a href="sales.html">Status<span class="tab-l"></span><span class="tab-r"></span></a></li>
+               #menu#
             </ul>
 
         <hr class="noscreen" />

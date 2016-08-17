@@ -12,7 +12,7 @@ $( document ).ready(function() {
 function showUser(str) {
 //console.log("started");
     if (str == "") {
-        document.getElementById("txtHint").innerHTML = "";
+        document.getElementById("txtHint").innerHTML = "Checking Game Server";
         return;
     } else { 
         if (window.XMLHttpRequest) {
@@ -35,14 +35,9 @@ function showUser(str) {
     }
 }
 </script>
-<script>
-function stop(port) {
-alert('running function to stop'+port);
-}
-</script>
 
-<div style="float:left;clear:left;width:100%;height:auto;padding:1.11%;" id="acc">
-<div style ="padding:1%;margin-top:-3.5%;"><div style="font-weight:bold;height:16px;" id="txtHint"><strong></strong></div></div>
+<div style="float:left;clear:left;width:100%;height:auto;padding:1.11%;margin-top:-4%;" id="acc">
+<div style ="padding:1%;margin-top:-3.5%;"><div style="font-weight:bold;height:16px;" id="txtHint"><strong>#servertime#</strong></div></div>
 <div style="font-weight:bold;float:left;">Running Games</div><hr style="clear:both">
   
                                            
@@ -51,7 +46,7 @@ alert('running function to stop'+port);
 
 
 <!--<div style="margin-top:3%;clear:left;width:77%;">#installed#</div> -->
-<div style="clear:left;float:left;margin-top:1%;width:77%;"><a class="button" href="http://admin.noideersoftware.co.uk" style="line-height: 20.8px;" title="here to access advanced options" target="_blank">Log in</a><a class="button" href="" style="line-height: 20.8px;" onclick="Location.reload()">Reload</a><a class="button" id="27017" href="" onclick="stop(27017)">Stop</a></div>
+<div style="clear:left;float:left;margin-top:1%;width:77%;"><a class="button" href="http://admin.noideersoftware.co.uk" style="line-height: 20.8px;" title="here to access advanced options" target="_blank">Log in</a><a class="button" href="" style="line-height: 20.8px;" onclick="Location.reload()">Reload</a></div>
 <!-- <div style="margin-top:1%;float:right;margin-right:1%;">#running#</div> -->
 
 

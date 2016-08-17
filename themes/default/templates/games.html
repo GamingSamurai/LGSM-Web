@@ -18,6 +18,11 @@
     <link rel="stylesheet" media="print" type="text/css" href="#css_path#/css/print.css" />
     <link rel="stylesheet" media="aural" type="text/css" href="#css_path#/css/aural.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+    <script>
+	function stop(){
+		alert('stop function');
+	}
+</script>  
 </head>
 
 <body id="www-url-cz">
@@ -48,11 +53,7 @@
 
             <h3 class="noscreen">Navigation</h3>
             <ul class="box">
-                <li><a href="#path#/index.php">Home<span class="tab-l"></span><span class="tab-r"></span></a></li> <!-- Active -->
-                <li id="active"><a href="#path#/games.php">Games<span class="tab-l"></span><span class="tab-r"></span></a></li> 
-                <li><a href="#path#/install.php">Install<span class="tab-l"></span><span class="tab-r"></span></a></li>
-                <li><a href="support.html">Support<span class="tab-l"></span><span class="tab-r"></span></a></li>
-                <li><a href="sales.html">Status<span class="tab-l"></span><span class="tab-r"></span></a></li>
+                #menu#
             </ul>
 
         <hr class="noscreen" />
@@ -71,7 +72,7 @@
             <div class="article" style="min-height:250px;">
                 
                 <!--<p>#content#</p> -->
-		#gcp#		
+		#content#		
 				
             </div> <!-- /article -->
 
