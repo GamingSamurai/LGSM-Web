@@ -7,3 +7,4 @@ For this Software to work at it's best, it can use the Webmin API so you may wan
 Remember this can be a different server to where the web interface code is placed.
 
 see https://noideersoftware.co.uk/dokuwiki/doku.php/steam:home for more information 
+<iframe src="https://discordapp.com/widget?id=191581638629523456&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
