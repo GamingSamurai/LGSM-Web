@@ -11,7 +11,7 @@
 
         public static function open()
         {
-            $db = Database::getDatabase();
+            //$db = Database::getDatabase();
             //die ('db connect');
             // must return true
             return true;
