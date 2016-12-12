@@ -129,14 +129,14 @@ if($site->settings['siteclosed'] === "1" & $Auth->level <>'admin') {
       { 
 		 
         DBSession::gc (CLEAR); // delete old sessions depends on settings if no sql events do this line 
-        echo '<br> cleared old';
+        //echo '<br> cleared old';
        }
        
     // Initialize our session
         //echo '<br> Register session';
 		DBSession::register(); // register the session
 		session_name('gamecp');
-		//session_start();
+		session_start();
 	    $id = session_id();
 	    $_SESSION['userid'] = intval($Auth->id);
 	    $_SESSION['nid'] = $Auth->nid;
