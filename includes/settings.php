@@ -36,11 +36,11 @@ $settings['theme_path'] = "default";
 $settings['show_device'] = "0";
 $settings['time_format'] = "h:i:s";
 $settings['date_format'] = "d-m-Y";
-$settings['panel_url'] = "https://noideersoftware.co.uk:10000";
+$settings['panel_url'] = "if you are using webmin enter the url to your control panel";
 $settings['domain_size'] = "0.5";
 $settings['cookie_url'] = "/misc.php?action=27015";
 $settings['disable_plugin'] = "0";
 $settings['new_posts'] = "5";
 $settings['olark_key'] = "";
-$settings['game_server'] = "http://lightsoundstudiosuk.co.uk"; 
+$settings['game_server'] = "enter the exact url to the remote files"; // e.g http://yourdomain.com/remote 
 ?>
