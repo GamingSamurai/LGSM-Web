@@ -1,1 +1,1 @@
-This is for the remote connections
+This is for remote connections, if you web interface is located on the same server as your game servers, make sure you alter the path in settings.php to reflect this
