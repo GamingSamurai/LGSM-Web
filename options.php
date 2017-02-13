@@ -23,24 +23,14 @@
  */
 require 'includes/master.inc.php'; // do login and stuff
 $template = new Template; 
-//echo $Auth->username.'<br>';
-
-//print_r($_GET);
 $page['content'] = 'Here we will contain the server maintainence do we need the options buttton on the server display ? it may be good pratice to stop the server before messing with its config.<br>Here is the data coresponding to this server<br>';
 $sql = 'Select * from games where uid = '.$Auth->id.' and port = '.$_GET['port'];
 $data=$database->get_results($sql);
 $running = shell_exec("wget -O - --quiet --no-check-certificate '".$settings['game_server']."/exc.php?user=".strtolower($Auth->username)."&action=running'");
 print_r($running);
-//echo '<br> now the serverfile';
- 
     $template->load($page['theme_path'].'templates/options.html',true);
-     //$page['content'] = 'this is our content';
-//print_r($page);
-//die();	
 $template->replace_vars($page);	    
-
-//$template->replace("xx",FORMAT_TIME);
-
+$template->removephp();
 $template->publish();
-//$homepage = file_get_contents('');
+
 ?>
