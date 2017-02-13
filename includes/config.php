@@ -4,15 +4,13 @@
  *
  */
 $config['database']['type'] = 'mysqli';
-$config['database']['database'] = 'noideergames';
+$config['database']['database'] = '<database name>';
 $config['database']['table_prefix'] = '';
 $config['database']['hostname'] = 'localhost';
-$config['database']['username'] = '1612';
-$config['database']['password'] = 'ahamay900';
+$config['database']['username'] = '<user>';
+$config['database']['password'] = '<password>';
 $config['database']['encoding'] = 'utf8';
-$config['database']['errors'] = "jim@noideersoftware.co.uk";
+$config['database']['errors'] = "<email address";
 $config['database']['useDBSessions'] =  "1";
 $config['database']['display_error'] = "1";
-$config['folder']['root'] = "rootie folder";
-$config['folder']['templates'] = 'template folder';
 ?>
