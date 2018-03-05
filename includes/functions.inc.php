@@ -10,10 +10,11 @@ function set_option($key, $val) {
 function get_option($key, $default = null) {
     $db = Database::getDatabase();
     $db->query('SELECT `value` FROM options WHERE `key` = :key:', array('key' => $key));
-    if ($db->hasRows())
+    if ($db->hasRows()) {
         return $db->getValue();
-    else
+    } else {
         return $default;
+    }
 }
 
 function delete_option($key) {
@@ -64,34 +65,23 @@ function full_url() {
 // Returns an English representation of a date
 // Graciously stolen from http://ejohn.org/files/pretty.js
 function time2str($ts) {
-    if (!ctype_digit($ts))
-        $ts = strtotime($ts);
+    if (!ctype_digit($ts)) { $ts = strtotime($ts); }
 
     $diff = time() - $ts;
-    if ($diff == 0)
-        return 'now';
+    if ($diff == 0) { return 'now'; }
     elseif ($diff > 0) {
         $day_diff = floor($diff / 86400);
         if ($day_diff == 0) {
-            if ($diff < 60)
-                return 'just now';
-            if ($diff < 120)
-                return '1 minute ago';
-            if ($diff < 3600)
-                return floor($diff / 60) . ' minutes ago';
-            if ($diff < 7200)
-                return '1 hour ago';
-            if ($diff < 86400)
-                return floor($diff / 3600) . ' hours ago';
+            if ($diff < 60) { return 'just now'; }
+            if ($diff < 120) { return '1 minute ago'; }
+            if ($diff < 3600) { return floor($diff / 60) . ' minutes ago'; }
+            if ($diff < 7200) { return '1 hour ago'; }
+            if ($diff < 86400) { return floor($diff / 3600) . ' hours ago'; }
         }
-        if ($day_diff == 1)
-            return 'Yesterday';
-        if ($day_diff < 7)
-            return $day_diff . ' days ago';
-        if ($day_diff < 31)
-            return ceil($day_diff / 7) . ' weeks ago';
-        if ($day_diff < 60)
-            return 'last month';
+        if ($day_diff == 1) { return 'Yesterday'; }
+        if ($day_diff < 7) { return $day_diff . ' days ago'; }
+        if ($day_diff < 31) { return ceil($day_diff / 7) . ' weeks ago'; }
+        if ($day_diff < 60) { return 'last month'; }
         $ret = date('F Y', $ts);
         return ($ret == 'December 1969') ? '' : $ret;
     }
@@ -99,25 +89,16 @@ function time2str($ts) {
         $diff = abs($diff);
         $day_diff = floor($diff / 86400);
         if ($day_diff == 0) {
-            if ($diff < 120)
-                return 'in a minute';
-            if ($diff < 3600)
-                return 'in ' . floor($diff / 60) . ' minutes';
-            if ($diff < 7200)
-                return 'in an hour';
-            if ($diff < 86400)
-                return 'in ' . floor($diff / 3600) . ' hours';
+            if ($diff < 120) { return 'in a minute'; }
+            if ($diff < 3600) { return 'in ' . floor($diff / 60) . ' minutes'; }
+            if ($diff < 7200) { return 'in an hour'; }
+            if ($diff < 86400) { return 'in ' . floor($diff / 3600) . ' hours'; }
         }
-        if ($day_diff == 1)
-            return 'Tomorrow';
-        if ($day_diff < 4)
-            return date('l', $ts);
-        if ($day_diff < 7 + (7 - date('w')))
-            return 'next week';
-        if (ceil($day_diff / 7) < 4)
-            return 'in ' . ceil($day_diff / 7) . ' weeks';
-        if (date('n', $ts) == date('n') + 1)
-            return 'next month';
+        if ($day_diff == 1) { return 'Tomorrow'; }
+        if ($day_diff < 4) { return date('l', $ts); }
+        if ($day_diff < 7 + (7 - date('w'))) { return 'next week'; }
+        if (ceil($day_diff / 7) < 4) { return 'in ' . ceil($day_diff / 7) . ' weeks'; }
+        if (date('n', $ts) == date('n') + 1) { return 'next month'; }
         $ret = date('F Y', $ts);
         return ($ret == 'December 1969') ? '' : $ret;
     }
@@ -127,10 +108,12 @@ function time2str($ts) {
 // The array values are timestamps which allow you to easily format
 // and manipulate the dates as needed.
 function calendar($month = null, $year = null) {
-    if (is_null($month))
+    if (is_null($month)) {
         $month = date('n');
-    if (is_null($year))
+    }
+    if (is_null($year)) {
         $year = date('Y');
+    }
 
     $first = mktime(0, 0, 0, $month, 1, $year);
     $last = mktime(23, 59, 59, $month, date('t', $first), $year);
@@ -141,8 +124,9 @@ function calendar($month = null, $year = null) {
     $out = array();
     while ($start < $stop) {
         $week = array();
-        if ($start > $last)
+        if ($start > $last) {
             break;
+        }
         for ($i = 0; $i < 7; $i++) {
             $week[$i] = $start;
             $start += 86400;
@@ -158,10 +142,12 @@ function calendar($month = null, $year = null) {
 function pick_off($grab_first = false, $sep = '/') {
     $ret = array();
     $arr = explode($sep, trim($_SERVER['REQUEST_URI'], $sep));
-    if ($grab_first)
+    if ($grab_first) {
         $ret[0] = array_shift($arr);
-    while (count($arr) > 0)
+    }
+    while (count($arr) > 0) {
         $ret[array_shift($arr)] = array_shift($arr);
+    }
     return (count($ret) > 0) ? $ret : false;
 }
 
@@ -175,18 +161,21 @@ function get_options($table, $val, $text, $default = null, $sql = '') {
     $rows = $db->getRows("SELECT * FROM `$table` $sql");
     foreach ($rows as $row) {
         $the_text = '';
-        if (!is_array($text))
-            $text = array($text); // Allows you to concat multiple fields for display
-        foreach ($text as $t)
+        if (!is_array($text)) {
+            $text = array($text);
+        } // Allows you to concat multiple fields for display
+        foreach ($text as $t) {
             $the_text .= $row[$t] . ' ';
+        }
         $the_text = htmlspecialchars(trim($the_text));
 
-        if (!is_null($default) && $row[$val] == $default)
+        if (!is_null($default) && $row[$val] == $default) {
             $out .= '<option value="' . htmlspecialchars($row[$val], ENT_QUOTES) . '" selected="selected">' . $the_text . '</option>';
-        elseif (is_array($default) && in_array($row[$val], $default))
+        } elseif (is_array($default) && in_array($row[$val], $default)) {
             $out .= '<option value="' . htmlspecialchars($row[$val], ENT_QUOTES) . '" selected="selected">' . $the_text . '</option>';
-        else
+        } else {
             $out .= '<option value="' . htmlspecialchars($row[$val], ENT_QUOTES) . '">' . $the_text . '</option>';
+        }
     }
     return $out;
 }
@@ -197,8 +186,9 @@ function chkdate($str) {
     if (function_exists('date_parse')) {
         $info = date_parse($str);
         if ($info !== false && $info['error_count'] == 0) {
-            if (checkdate($info['month'], $info['day'], $info['year']))
+            if (checkdate($info['month'], $info['day'], $info['year'])) {
                 return true;
+            }
         }
 
         return false;
@@ -210,21 +200,27 @@ function chkdate($str) {
 
 // Converts a date/timestamp into the specified format
 function dater($date = null, $format = null) {
-    if (is_null($format))
+    if (is_null($format)) {
         $format = 'Y-m-d H:i:s';
+    }
 
-    if (is_null($date))
+    if (is_null($date)) {
         $date = time();
+    }
 
-    if (is_int($date))
+    if (is_int($date)) {
         return date($format, $date);
-    if (is_float($date))
+    }
+    if (is_float($date)) {
         return date($format, $date);
+    }
     if (is_string($date)) {
-        if (ctype_digit($date) === true)
+        if (ctype_digit($date) === true) {
             return date($format, $date);
-        if ((preg_match('/[^0-9.]/', $date) == 0) && (substr_count($date, '.') <= 1))
+        }
+        if ((preg_match('/[^0-9.]/', $date) == 0) && (substr_count($date, '.') <= 1)) {
             return date($format, floatval($date));
+        }
         return date($format, strtotime($date));
     }
 
@@ -237,12 +233,13 @@ function dater($date = null, $format = null) {
 function format_phone($phone) {
     $phone = preg_replace("/[^0-9]/", '', $phone);
 
-    if (strlen($phone) == 7)
+    if (strlen($phone) == 7) {
         return preg_replace("/([0-9]{3})([0-9]{4})/", "$1-$2", $phone);
-    elseif (strlen($phone) == 10)
+    } elseif (strlen($phone) == 10) {
         return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
-    else
+    } else {
         return $phone;
+    }
 }
 
 // Outputs hour, minute, am/pm dropdown boxes
@@ -254,38 +251,45 @@ function hourmin($hid = 'hour', $mid = 'minute', $pid = 'ampm', $hval = null, $m
         $mid = 'minute';
         $aid = 'ampm';
     } else {
-        if (is_null($hval))
+        if (is_null($hval)) {
             $hval = date('h');
-        if (is_null($mval))
+        }
+        if (is_null($mval)) {
             $mval = date('i');
-        if (is_null($pval))
+        }
+        if (is_null($pval)) {
             $pval = date('a');
+        }
     }
 
     $hours = array(12, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11);
     $out = "<select name='$hid' id='$hid'>";
-    foreach ($hours as $hour)
-        if (intval($hval) == intval($hour))
+    foreach ($hours as $hour) {
+        if (intval($hval) == intval($hour)) {
             $out .= "<option value='$hour' selected>$hour</option>";
-        else
+        } else {
             $out .= "<option value='$hour'>$hour</option>";
+        }
+    }
     $out .= "</select>";
-
     $minutes = array('00', 15, 30, 45);
     $out .= "<select name='$mid' id='$mid'>";
-    foreach ($minutes as $minute)
-        if (intval($mval) == intval($minute))
+    foreach ($minutes as $minute) {
+        if (intval($mval) == intval($minute)) {
             $out .= "<option value='$minute' selected>$minute</option>";
-        else
+        } else {
             $out .= "<option value='$minute'>$minute</option>";
+        }
+    }
     $out .= "</select>";
 
     $out .= "<select name='$pid' id='$pid'>";
     $out .= "<option value='am'>am</option>";
-    if ($pval == 'pm')
+    if ($pval == 'pm') {
         $out .= "<option value='pm' selected>pm</option>";
-    else
+    } else {
         $out .= "<option value='pm'>pm</option>";
+    }
     $out .= "</select>";
 
     return $out;
@@ -296,12 +300,15 @@ function hourmin($hid = 'hour', $mid = 'minute', $pid = 'ampm', $hval = null, $m
 // $prefix_ will be appened to the name/id's of each dropdown, allowing for multiple calls in the same form.
 // $output_format lets you specify which dropdowns appear and in what order.
 function mdy($date = null, $prefix = null, $output_format = 'm d y') {
-    if (is_null($date))
+    if (is_null($date)) {
         $date = time();
-    if (!ctype_digit($date))
+    }
+    if (!ctype_digit($date)) {
         $date = strtotime($date);
-    if (!is_null($prefix))
+    }
+    if (!is_null($prefix)) {
         $prefix .= '_';
+    }
     list($yval, $mval, $dval) = explode(' ', date('Y n j', $date));
 
     $month_dd = "<select name='{$prefix}month' id='{$prefix}month'>";
@@ -331,8 +338,9 @@ function mdy($date = null, $prefix = null, $output_format = 'm d y') {
 
 // Redirects user to $url
 function redirect($url = null) {
-    if (is_null($url))
+    if (is_null($url)) {
         $url = $_SERVER['PHP_SELF'];
+    }
     header("Location: $url");
     exit();
 }
@@ -349,38 +357,42 @@ function unslash($str) {
 
 // Returns an array of the values of the specified column from a multi-dimensional array
 function gimme($arr, $key = null) {
-    if (is_null($key))
+    if (is_null($key)) {
         $key = current(array_keys($arr));
-
+    }
     $out = array();
-    foreach ($arr as $a)
+    foreach ($arr as $a) {
         $out[] = $a[$key];
-
+    }
     return $out;
 }
 
 // Fixes MAGIC_QUOTES
 function fix_slashes($arr = '') {
-    if (is_null($arr) || $arr == '')
+    if (is_null($arr) || $arr == '') {
         return null;
-    if (!get_magic_quotes_gpc())
+    }
+    if (!get_magic_quotes_gpc()) {
         return $arr;
+    }
     return is_array($arr) ? array_map('fix_slashes', $arr) : stripslashes($arr);
 }
 
 // Returns the first $num words of $str
 function max_words($str, $num, $suffix = '') {
     $words = explode(' ', $str);
-    if (count($words) < $num)
+    if (count($words) < $num) {
         return $str;
-    else
+    } else {
         return implode(' ', array_slice($words, 0, $num)) . $suffix;
+    }
 }
 
 // Serves an external document for download as an HTTP attachment.
 function download_document($filename, $mimetype = 'application/octet-stream') {
-    if (!file_exists($filename) || !is_readable($filename))
+    if (!file_exists($filename) || !is_readable($filename)) {
         return false;
+    }
     $base = basename($filename);
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
     header("Content-Disposition: attachment; filename=$base");
@@ -434,18 +446,21 @@ function valid_email($email, $test_mx = false) {
         if ($test_mx) {
             list(, $domain) = explode("@", $email);
             return getmxrr($domain, $mxrecords);
-        } else
+        } else {
             return true;
-    } else
+        }
+    } else {
         return false;
+    }
 }
 
 // Grabs the contents of a remote URL. Can perform basic authentication if un/pw are provided.
 function geturl($url, $username = null, $password = null) {
     if (function_exists('curl_init')) {
         $ch = curl_init();
-        if (!is_null($username) && !is_null($password))
+        if (!is_null($username) && !is_null($password)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode("$username:$password")));
+        }
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
@@ -454,8 +469,9 @@ function geturl($url, $username = null, $password = null) {
         return $html;
     }
     elseif (ini_get('allow_url_fopen') == true) {
-        if (!is_null($username) && !is_null($password))
+        if (!is_null($username) && !is_null($password)) {
             $url = str_replace("://", "://$username:$password@", $url);
+        }
         $html = file_get_contents($url);
         return $html;
     }
@@ -478,17 +494,19 @@ function browser_info() {
 
 // Quick wrapper for preg_match
 function match($regex, $str, $i = 0) {
-    if (preg_match($regex, $str, $match) == 1)
+    if (preg_match($regex, $str, $match) == 1) {
         return $match[$i];
-    else
+    } else {
         return false;
+    }
 }
 
 // Sends an HTML formatted email
 function send_html_mail($to, $subject, $msg, $from, $plaintext = '') {
-    if (!is_array($to))
+    if (!is_array($to)) {
         $to = array($to);
-
+    }
+    
     foreach ($to as $address) {
         $boundary = uniqid(rand(), true);
 
@@ -519,8 +537,9 @@ function geocode($location, $appid) {
     $data = file_get_contents("http://local.yahooapis.com/MapsService/V1/geocode?output=php&appid=$appid&location=$location");
     $data = unserialize($data);
 
-    if ($data === false)
+    if ($data === false) {
         return false;
+    }
 
     $data = $data['ResultSet']['Result'];
 
@@ -537,8 +556,9 @@ function reverse_geocode($lat, $lng) {
 function curl($url, $referer = null, $post = null) {
     static $tmpfile;
 
-    if (!isset($tmpfile) || ($tmpfile == ''))
+    if (!isset($tmpfile) || ($tmpfile == '')) {
         $tmpfile = tempnam('/tmp', 'FOO');
+    }
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -549,8 +569,9 @@ function curl($url, $referer = null, $post = null) {
     // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     // curl_setopt($ch, CURLOPT_VERBOSE, 1);
 
-    if ($referer)
+    if ($referer) {
         curl_setopt($ch, CURLOPT_REFERER, $referer);
+    }
     if (!is_null($post)) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -564,9 +585,11 @@ function curl($url, $referer = null, $post = null) {
 
 // Accepts any number of arguments and returns the first non-empty one
 function pick() {
-    foreach (func_get_args() as $arg)
-        if (!empty($arg))
+    foreach (func_get_args() as $arg) {
+        if (!empty($arg)) {
             return $arg;
+        }
+    }
     return '';
 }
 
@@ -590,8 +613,9 @@ spl_autoload_register('framework_autoload');
 function framework_autoload($class_name) {
     $filename = DOC_ROOT . '/includes/class.' . strtolower($class_name) . '.php';
     //echo $filename.'<br>';
-    if (file_exists($filename))
+    if (file_exists($filename)) {
         require $filename;
+    }
 }
 
 // Returns a file's mimetype based on its extension
@@ -1006,7 +1030,7 @@ function menu_items($level) {
         $template->load($page['template_path'] . 'workers/menu.html');
 
         if ($page['path'] . $item['link'] === $_SERVER['SCRIPT_URI']) {
-            echo '<br> found item'.$page['path'].$item['link'].'<br>';
+            echo '<br> found item' . $page['path'] . $item['link'] . '<br>';
             $item['id'] = 'active';
             $item['link'] = $page['path'] . $item['link'];
         } elseif ($_SERVER['SCRIPT_URL'] === '/' and $set == 0) {
