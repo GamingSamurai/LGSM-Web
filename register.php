@@ -121,7 +121,7 @@ if ($Error <> "") {
     $Error = "<ul class=\"alert error\" style=\"width:98%;margin:10px\">" . $Error . "</ul>";
 }
 // put the page together
-//echo 	$page['template_path'];
+echo 	$page['template_path'];
 //die();
 $page['header'] = $template->load($page['template_path'] . 'header.html', COMMENT);
 $page['footer'] = $template->load($page['template_path'] . 'footer.tmpl', COMMENT);
