@@ -44,12 +44,12 @@ if (!empty($_POST['username'])) {
         //include ('steamauth/userInfo.php');
         //Corrected? Might need steamauth.php instead? --zero
         include ('includes/userInfo.php'); 
-        //echo '<br> in the else thingy<br>'; 
+        echo '<br> in the else thingy<br>'; 
         print_r($steamprofile);
     }
-} elseif (isset($_SESSION['steamid'])) {
+} elseif (isset($_SESSION['steamid']) && !empty($_POST['steamid'])) {
     // steam
-    //include ('steamauth/userInfo.php');
+    include ('steamauth/userInfo.php');
     echo '<br> in the outer loop thingy<br>';
     print_r($steamprofile);
 }
