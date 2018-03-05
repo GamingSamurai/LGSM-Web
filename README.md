@@ -1,5 +1,5 @@
-# git forked - by zero for Gaming Samurai
-from LGSM Web Interface by JimTR
+#LGSM-Web git forked - by zero for Gaming Samurai
+from the LGSM Web Interface by JimTR
 https://github.com/JimTR/LGSM-Web
 
 ## Intent
@@ -12,17 +12,19 @@ Requirements for this fork are a working Game & LAMP server with LGSM https://ga
 The continued development is being done against Ubuntu 16.04 with Apache2 and MySQL5.
 I can't guarantee compatibility beyond this.
 
+(There was talk of this project moving away from LGSM if I understood correctly, so I am not sure how dependant this project is on LGSM at the time it was forked. TBD)
+
 To 'install' 
 
 Database
 1. Create a new DB
-2. Run database.sql
-3. Configure the appropriate fields in includes/config.php to configure your connection to the new DB
+2. Run database.sql (TODO: add default "starter" data to DB)
+3. Configure the appropriate fields in includes/config.php to configure connection to the new DB
 
 Site
-1. Site settings should be done from the CP, but for now are currently being modified directly in includes/settings.php
+1. Site settings should be done from the CP according to notes in the settings file, but for now settings are being modified directly in includes/settings.php
 
-   While using a remote server is possible (if I understand the original intent), this option will be explored later. It appears that if a remote game server is used then said game server should require the included directory named 'remote'
+   While using a remote server is possible (if I understand the original intent), this option will be explored later. It appears that if a remote game server is used then that server should require the included directory named 'remote'
 
 original README follows
 
