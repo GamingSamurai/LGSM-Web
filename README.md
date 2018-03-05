@@ -8,8 +8,9 @@ I'm really rusty at this stuff and not sure if I will be able to recruit anyone 
 Coffee, may you forever replenish my fortitude and determination.
 
 ## Notes on requirements, installing, and configuring
-Requirements for this fork are a working web server with PHP7 (I have already run into deprecation issues, so I am keeping this project in PHP7 as much as possible.)
-Development done on Ubuntu 16.04 with Apache2 and MySQL, I can't guarantee compatibility beyond this.
+Requirements for this fork are a working Game & LAMP server with LGSM https://gameservermanagers.com/ and PHP7 (I have already run into deprecation issues, so I am keeping this project in PHP7 as much as possible.)
+The continued development is being done against Ubuntu 16.04 with Apache2 and MySQL5.
+I can't guarantee compatibility beyond this.
 
 To 'install' 
 
@@ -21,7 +22,7 @@ Database
 Site
 1. Site settings should be done from the CP, but for now are currently being modified directly in includes/settings.php
 
-   While using a remote server is possible, the option will be explored further later. For now, it appears that remote game server should require the included directory named 'remote'
+   While using a remote server is possible (if I understand the original intent), this option will be explored later. It appears that if a remote game server is used then said game server should require the included directory named 'remote'
 
 original README follows
 
