@@ -13,14 +13,15 @@ Development done on Ubuntu 16.04 with Apache2 and MySQL, I can't guarantee compa
 
 To 'install' 
 
-1. Database
-  1. Create a new DB
-  2. Run database.sql
-  3. Configure the appropriate fields in includes/config.php to configure your connection to the new DB
+Database
+1. Create a new DB
+2. Run database.sql
+3. Configure the appropriate fields in includes/config.php to configure your connection to the new DB
 
-2. Site
-  1. Site settings should be done from the CP, but for now are currently being modified directly in includes/settings.php
-     While using a remote server is possible, the option will be explored further later. For now, it appears that remote game server should require the included directory named 'remote'
+Site
+1. Site settings should be done from the CP, but for now are currently being modified directly in includes/settings.php
+
+   While using a remote server is possible, the option will be explored further later. For now, it appears that remote game server should require the included directory named 'remote'
 
 original README follows
 
