@@ -40,7 +40,10 @@ if (!empty($_POST['username'])) {
     } else {
         //die ('no user name');
         $Error = "You have entered an incorrect username/password combination.<br> Please try again. ";
-        include ('steamauth/userInfo.php');
+        //wrong directory? filename does exist in includes --zero
+        //include ('steamauth/userInfo.php');
+        //Corrected? Might need steamauth.php instead? --zero
+        include ('includes/userInfo.php'); 
         //echo '<br> in the else thingy<br>'; 
         print_r($steamprofile);
     }
