@@ -175,7 +175,7 @@ $gameservers[] =  array(
 	$temp['short_date'] = date("d-m-Y",$serverlist['start_time']);
 	$temp['online'] = $results[$serverlist['port']]['gq_numplayers'];
 	$temp['maxplayers'] = $results[$serverlist['port']]['gq_maxplayers'];
-	$temp['map_image'] = $page['path'].'/images/games/'.$results[$serverlist['port']]['gq_mapname'];
+	$temp['map_image'] = $page['path'].'images/games/'.$results[$serverlist['port']]['gq_mapname'];
 	$temp['type'] = $serverlist['type']; 
 	$online_row->replace_vars($temp); // add the debug stuff
 	$temp['hostname']=$temp['name'];

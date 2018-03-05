@@ -119,10 +119,10 @@ if ($key !== false) {
 			$game_record['online'] = $results[$serverlist['id']]['gq_numplayers'];
 			$game_record['maxplayers'] = $results[$serverlist['id']]['gq_maxplayers'];
 			if (check_image ($results[$serverlist['id']]['gq_mapname'])) { 
-			$game_record['map_image'] = $page['path'].'/images/games/'.$results[$serverlist['id']]['gq_mapname'];
+			$game_record['map_image'] = $page['path'].'images/games/'.$results[$serverlist['id']]['gq_mapname'];
 		    }
 		    else {
-				$game_record['map_image'] = $page['path'].'/images/games/no_image';
+				$game_record['map_image'] = $page['path'].'images/games/no_image';
 			}
 			if ($results[$serverlist['id']]['gq_mod']){
 					$game_record['type'] = $results[$serverlist['id']]['gq_mod'];} 

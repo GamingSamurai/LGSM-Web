@@ -86,7 +86,7 @@ else {$page['address'] ='';}
     //$site->settings['template_path'] = DOC_ROOT.'/templates/'.$page['device'].'/'; // set the templates for the device 
     $page['theme_path'] =  DOC_ROOT.'/themes/'.$site->settings['theme_path'].'/'; //set the css path bug ! 
     $page['css_path'] =  $page['path'].'/themes/'.$site->settings['theme_path'].'/'; //set the css path bug ! 
-    $page['template_path'] = $page['theme_path'].'/templates/'; // set the templates for the device
+    $page['template_path'] = $page['theme_path'].'templates/'; // set the templates for the device
     if ($site->settings['show_device'] <> "1"){$page['device'] = "";}
 	 else {$page['device'] = '('.$page['device'].')';}
 //echo '<br>loaded thus far'; 
