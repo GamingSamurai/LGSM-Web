@@ -103,7 +103,7 @@ switch ($server_result){
 			echo ' result<br>';
 			if ($result >0){
 			
-				$servers[$row['Service_name']], ($row['service_type'], $row['ip'], $row['port']);
+				$servers = array ($row['Service_name'], $row['service_type'], $row['ip'], $row['port']);
 			
 				}
 		else {

@@ -182,7 +182,7 @@ $db->endTransaction();
 /**
  * Select a single row
  */
-$db->query('SELECT FName, LName, Age, Gender FROM mytable WHERE FName = :fname')
+$db->query('SELECT FName, LName, Age, Gender FROM mytable WHERE FName = :fname');
 
 $db->bind(':fname', 'Jenny');
 
