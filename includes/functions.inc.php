@@ -994,7 +994,7 @@ function menu_items($level) {
     $temp = $template->load($page['template_path'] . 'workers/menu.html');
     $sql = 'select name, link from menus where level<=' . $level;
     $menu = $database->get_results($sql);
-    print_r($menu);
+    echo $menu;
     if (!$_SERVER['SCRIPT_URI']) {
         //echo '<br>huston<br>';
         $_SERVER['SCRIPT_URI'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
