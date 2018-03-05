@@ -1,229 +1,233 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="content-language" content="cs" />
-    <meta name="robots" content="all,follow" />
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="content-language" content="cs" />
+        <meta name="robots" content="all,follow" />
 
-    <meta name="author" content="All: ... [Nazev webu - www.url.cz]; e-mail: info@url.cz" />
-    <meta name="copyright" content="Design/Code: Vit Dlouhy [Nuvio - www.nuvio.cz]; e-mail: vit.dlouhy@nuvio.cz" />
-    
-    <title>#title#</title>
-    <meta name="description" content="..." />
-    <meta name="keywords" content="..." />
-     <link rel="stylesheet" media="screen,projection" type="text/css" href="#css_path#css/main.css" />
-    <link rel="stylesheet" media="print" type="text/css" href="#css_path#/css/print.css" />
-    <link rel="stylesheet" media="aural" type="text/css" href="#css_path#/css/aural.css" />
-    <link rel="stylesheet" href="#css_path#css/alertify.core.css"> 
-    <link rel="stylesheet" href="#css_path#css/alertify.default.css" id="toggleCSS">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-    <script src="#path#/js/alertify.js" type="text/javascript"></script>	
-    <script>
-         $(document).ready(function(){
- 		  timer=setInterval(function(){cache_clear()},45000);
- 	}); 
- function cache_clear()
-{
- window.location.reload(true);
-}
-	function stop(port,file,path){
-		
-		if (port == "") {
-        document.getElementById("txtHint").innerHTML = "Checking Game Server";
-        return;
-    } else { 
-        clearInterval(timer);
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            stop = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            stop = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        stop.onreadystatechange = function() {
-            if (stop.readyState == 4 && stop.status == 200) {
-                document.getElementById("stopped").innerHTML = stop.responseText;
-                
-                console.log("response from stop");
-                message = 'Server Stopped';  
-                //alert(message); 
-                 alertify.alert(message);
-                 cache_clear();  
-                //window.reload;
-            }
-        }
-        
-        stop.open("GET","#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&gpath="+path+"&action=stop",true);
-        stop.send();
-        console.log("request fired from stop");
-        document.getElementById("txtHint").innerHTML = "Modifiying Game Server"; 
-        document.getElementById("stopped").innerHTML = file;
-        message ='Stopping Server '+ file;
-        //alert(message);
-        alertify.alert(message);  
-        //setTimeout(window.reload, 600000);
-        //alert ('waiting');
-    }
-	}
-	function start(port,file,path){
-             //alert(file);
-		
-		if (port == "") {
-        document.getElementById("txtHint").innerHTML = "Checking Game Server";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            start = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            start = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        start.onreadystatechange = function() {
-            if (start.readyState == 4 && start.status == 200) {
-                document.getElementById("stopped").innerHTML = start.responseText;
-                
-                console.log("response from start");
-                //alert ('response from server');
-                message ='Server Started, be aware that this server may not show in your server listing for over a minuite dependant on server configuration';
-                alertify.set({
-				labels : {
-					ok     : "OK",
-					cancel : "Finish"
-				},
-				delay : 2000,
-				buttonReverse : true,
-				buttonFocus   : "ok"
-			});   
-                alertify.alert(message);
-                //window.location.reload();
-            }
-        }
-        cmd = '"#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&action=start&gpath=+path"';
-        //alert (cmd);   
-        start.open("GET","#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&gpath="+path+"&action=start",true);
-        start.send();
-        //setTimeout(function(){ alert("Hello"); }, 3000);
-        console.log("request fired from start");
-        document.getElementById("txtHint").innerHTML = "Modifiying Game Server"; 
-        document.getElementById("stopped").innerHTML = file;
-        //alert('Starting Server '+ str);
-          //alert ('waiting');
-    }
-}	
-function Alert(port,file,gpath) {
-//event.preventDefault();
- message = '<iframe src ="#path#/options.php?port='+port+'&file='+file+'&path='+gpath+'" style="border:0;width:100%;height:220px;overflow:hidden;width:99%" scrolling="no"></iframe> ';
-	
-	alertify.set({
-				labels : {
-					ok     : "Start Server",
-					cancel : "Quit"
-				},
-				delay : 2000,
-				buttonReverse : true,
-				buttonFocus   : "ok"
-			});
-		clearInterval(timer);
-                   
-	alertify.confirm(message, function(e) {
-		if (e) {
-            // user clicked "ok"
-            //$( "#result" ).load( "ajax/test.html" );
-                 alertify.alert('Could not load due to no free ports');
-                //alert ("loaded " + file);
-		 start(port,file,gpath)               
-            alertify.success("Starting Server "+file);
-            
-             timer=setInterval(function(){cache_clear()},45000);
-              
-           
-            
-        } 
-        
-        else {
-            // user clicked "cancel"
-            alertify.error("Server "+file+" not started" );
-            timer=setInterval(function(){cache_clear()},45000);
-        }
-								}, 'attach');
-	}	
-	
-</script>  
-</head>
+        <meta name="author" content="All: ... [Nazev webu - www.url.cz]; e-mail: info@url.cz" />
+        <meta name="copyright" content="Design/Code: Vit Dlouhy [Nuvio - www.nuvio.cz]; e-mail: vit.dlouhy@nuvio.cz" />
 
-<body id="www-url-cz">
+        <title>#title#</title>
+        <meta name="description" content="..." />
+        <meta name="keywords" content="..." />
+        <link rel="stylesheet" media="screen,projection" type="text/css" href="#css_path#css/main.css" />
+        <link rel="stylesheet" media="print" type="text/css" href="#css_path#/css/print.css" />
+        <link rel="stylesheet" media="aural" type="text/css" href="#css_path#/css/aural.css" />
+        <link rel="stylesheet" href="#css_path#css/alertify.core.css"> 
+            <link rel="stylesheet" href="#css_path#css/alertify.default.css" id="toggleCSS">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+                <script src="#path#/js/alertify.js" type="text/javascript"></script>	
+                <script>
+                    $(document).ready(function () {
+                        timer = setInterval(function () {
+                            cache_clear()
+                        }, 45000);
+                    });
+                    function cache_clear()
+                    {
+                        window.location.reload(true);
+                    }
+                    function stop(port, file, path) {
 
-<!-- Main -->
-<div id="main" class="box">
+                        if (port == "") {
+                            document.getElementById("txtHint").innerHTML = "Checking Game Server";
+                            return;
+                        } else {
+                            clearInterval(timer);
+                            if (window.XMLHttpRequest) {
+                                // code for IE7+, Firefox, Chrome, Opera, Safari
+                                stop = new XMLHttpRequest();
+                            } else {
+                                // code for IE6, IE5
+                                stop = new ActiveXObject("Microsoft.XMLHTTP");
+                            }
+                            stop.onreadystatechange = function () {
+                                if (stop.readyState == 4 && stop.status == 200) {
+                                    document.getElementById("stopped").innerHTML = stop.responseText;
 
-    <!-- Header -->
-    <div id="header">
+                                    console.log("response from stop");
+                                    message = 'Server Stopped';
+                                    //alert(message); 
+                                    alertify.alert(message);
+                                    cache_clear();
+                                    //window.reload;
+                                }
+                            }
 
-        <!-- Logotyp -->
-        <h1 id="logo">#title#</h1>
-        <hr class="noscreen" />          
+                            stop.open("GET", "#server#/servercmd.php?user=#user#&port=" + port + "&type=" + file + "&gpath=" + path + "&action=stop", true);
+                            stop.send();
+                            console.log("request fired from stop");
+                            document.getElementById("txtHint").innerHTML = "Modifiying Game Server";
+                            document.getElementById("stopped").innerHTML = file;
+                            message = 'Stopping Server ' + file;
+                            //alert(message);
+                            alertify.alert(message);
+                            //setTimeout(window.reload, 600000);
+                            //alert ('waiting');
+                        }
+                    }
+                    function start(port, file, path) {
+                        //alert(file);
 
-        <!-- Quick links -->
-        <div class="noscreen noprint">
-            <p><em>Quick links: <a href="#content">content</a>, <a href="#tabs">navigation</a>, <a href="#search">search</a>.</em></p>
-            <hr />
-        </div>
+                        if (port == "") {
+                            document.getElementById("txtHint").innerHTML = "Checking Game Server";
+                            return;
+                        } else {
+                            if (window.XMLHttpRequest) {
+                                // code for IE7+, Firefox, Chrome, Opera, Safari
+                                start = new XMLHttpRequest();
+                            } else {
+                                // code for IE6, IE5
+                                start = new ActiveXObject("Microsoft.XMLHTTP");
+                            }
+                            start.onreadystatechange = function () {
+                                if (start.readyState == 4 && start.status == 200) {
+                                    document.getElementById("stopped").innerHTML = start.responseText;
 
-        <!-- Search -->#search#
-         <!-- /search -->
+                                    console.log("response from start");
+                                    //alert ('response from server');
+                                    message = 'Server Started, be aware that this server may not show in your server listing for over a minuite dependant on server configuration';
+                                    alertify.set({
+                                        labels: {
+                                            ok: "OK",
+                                            cancel: "Finish"
+                                        },
+                                        delay: 2000,
+                                        buttonReverse: true,
+                                        buttonFocus: "ok"
+                                    });
+                                    alertify.alert(message);
+                                    //window.location.reload();
+                                }
+                            }
+                            cmd = '"#server#/servercmd.php?user=#user#&port="+port+"&type="+file+"&action=start&gpath=+path"';
+                            //alert (cmd);   
+                            start.open("GET", "#server#/servercmd.php?user=#user#&port=" + port + "&type=" + file + "&gpath=" + path + "&action=start", true);
+                            start.send();
+                            //setTimeout(function(){ alert("Hello"); }, 3000);
+                            console.log("request fired from start");
+                            document.getElementById("txtHint").innerHTML = "Modifiying Game Server";
+                            document.getElementById("stopped").innerHTML = file;
+                            //alert('Starting Server '+ str);
+                            //alert ('waiting');
+                        }
+                    }
+                    function Alert(port, file, gpath) {
+                        //event.preventDefault();
+                        message = '<iframe src ="#path#/options.php?port=' + port + '&file=' + file + '&path=' + gpath + '" style="border:0;width:100%;height:220px;overflow:hidden;width:99%" scrolling="no"></iframe> ';
 
-    </div> <!-- /header -->
+                        alertify.set({
+                            labels: {
+                                ok: "Start Server",
+                                cancel: "Quit"
+                            },
+                            delay: 2000,
+                            buttonReverse: true,
+                            buttonFocus: "ok"
+                        });
+                        clearInterval(timer);
 
-     <!-- Main menu (tabs) -->
-     <div id="tabs" class="noprint">
+                        alertify.confirm(message, function (e) {
+                            if (e) {
+                                // user clicked "ok"
+                                //$( "#result" ).load( "ajax/test.html" );
+                                alertify.alert('Could not load due to no free ports');
+                                //alert ("loaded " + file);
+                                start(port, file, gpath)
+                                alertify.success("Starting Server " + file);
 
-            <h3 class="noscreen">Navigation</h3>
-            <ul class="box">
-               #menu#
-            </ul>
-
-        <hr class="noscreen" />
-     </div> <!-- /tabs -->
-
-    <!-- Page (2 columns) -->
-    <div id="page" class="box">
-    <div id="page-in" class="box">
-
-       
-
-        <!-- Content -->
-        <div id="content">
-
-            <!-- Article -->
-            <div class="article" style="min-height:250px;">
-                
-                <p>#content#</p>
-				
-				
-            </div> <!-- /article -->
-
-            <hr class="noscreen" />
+                                timer = setInterval(function () {
+                                    cache_clear()
+                                }, 45000);
 
 
-            <hr class="noscreen" />
-            
-        </div> <!-- /content -->
 
-        <!-- Right column -->
-        #right#
+                            } else {
+                                // user clicked "cancel"
+                                alertify.error("Server " + file + " not started");
+                                timer = setInterval(function () {
+                                    cache_clear()
+                                }, 45000);
+                            }
+                        }, 'attach');
+                    }
 
-    <!-- Footer -->
-    <div id="footer">
-        <div id="top" class="noprint"><p><span class="noscreen">Back on top</span> <a href="#header" title="Back on top ^">^<span></span></a></p></div>
-        <hr class="noscreen" />
-        
-        <p id="createdby">Theme by <a href="http://www.nuvio.cz">Nuvio | Webdesign</a> <!-- DON´T REMOVE, PLEASE! --></p>
-        <p id="copyright">Powered By <a href="http://noideersoftware.org.uk/" target="_blank">Merlin</a> &copy; #start_year# - #copy_year# <a href="http://noideersoftware.co.uk/" target="_blank">NoIdeer Software</a>. </p>
-    </div> <!-- /footer -->
+                </script>  
+                </head>
 
-</div> <!-- /main -->
+                <body id="www-url-cz">
 
-</body>
-</html>
+                    <!-- Main -->
+                    <div id="main" class="box">
+
+                        <!-- Header -->
+                        <div id="header">
+
+                            <!-- Logotyp -->
+                            <h1 id="logo">#title#</h1>
+                            <hr class="noscreen" />          
+
+                            <!-- Quick links -->
+                            <div class="noscreen noprint">
+                                <p><em>Quick links: <a href="#content">content</a>, <a href="#tabs">navigation</a>, <a href="#search">search</a>.</em></p>
+                                <hr />
+                            </div>
+
+                            <!-- Search -->#search#
+                            <!-- /search -->
+
+                        </div> <!-- /header -->
+
+                        <!-- Main menu (tabs) -->
+                        <div id="tabs" class="noprint">
+
+                            <h3 class="noscreen">Navigation</h3>
+                            <ul class="box">
+                                #menu#
+                            </ul>
+
+                            <hr class="noscreen" />
+                        </div> <!-- /tabs -->
+
+                        <!-- Page (2 columns) -->
+                        <div id="page" class="box">
+                            <div id="page-in" class="box">
+
+
+
+                                <!-- Content -->
+                                <div id="content">
+
+                                    <!-- Article -->
+                                    <div class="article" style="min-height:250px;">
+
+                                        <p>#content#</p>
+
+
+                                    </div> <!-- /article -->
+
+                                    <hr class="noscreen" />
+
+
+                                    <hr class="noscreen" />
+
+                                </div> <!-- /content -->
+
+                                <!-- Right column -->
+                                #right#
+
+                                <!-- Footer -->
+                                <div id="footer">
+                                    <div id="top" class="noprint"><p><span class="noscreen">Back on top</span> <a href="#header" title="Back on top ^">^<span></span></a></p></div>
+                                    <hr class="noscreen" />
+
+                                    <p id="createdby">Theme by <a href="http://www.nuvio.cz">Nuvio | Webdesign</a> <!-- DON´T REMOVE, PLEASE! --></p>
+                                    <p id="copyright">Powered By <a href="http://noideersoftware.org.uk/" target="_blank">Merlin</a> &copy; #start_year# - #copy_year# <a href="http://noideersoftware.co.uk/" target="_blank">NoIdeer Software</a>. </p>
+                                </div> <!-- /footer -->
+
+                            </div> <!-- /main -->
+
+                            </body>
+                            </html>

@@ -143,9 +143,9 @@ class Auth {
     }
 
     public static function changePassword($id_or_username, $new_password) {
-        if (ctype_digit($id_or_username))
+        if (ctype_digit($id_or_username)) {
             $u = new User($id_or_username);
-        else {
+        } else {
             $u = new User();
             $u->select($id_or_username, 'username');
         }
@@ -162,11 +162,13 @@ class Auth {
 
         $user_exists = $db->getValue("SELECT COUNT(*) FROM users WHERE username = " . $db->quote($username));
         //die ("Users = ".$user_exists);
-        if ($user_exists > 0)
+        if ($user_exists > 0) {
             return false;
+        }
 
-        if (is_null($password))
+        if (is_null($password)) {
             $password = Auth::generateStrongPassword();
+        }
 
         srand(time());
         $u = new User();
@@ -180,18 +182,10 @@ class Auth {
 
     public static function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds') {
         $sets = array();
-        if (strpos($available_sets, 'l') !== false) {
-            $sets[] = 'abcdefghjkmnpqrstuvwxyz';
-        }
-        if (strpos($available_sets, 'u') !== false) {
-            $sets[] = 'ABCDEFGHJKMNPQRSTUVWXYZ';
-        }
-        if (strpos($available_sets, 'd') !== false) {
-            $sets[] = '23456789';
-        }
-        if (strpos($available_sets, 's') !== false) {
-            $sets[] = '!@#$%&*?';
-        }
+        if (strpos($available_sets, 'l') !== false) { $sets[] = 'abcdefghjkmnpqrstuvwxyz'; }
+        if (strpos($available_sets, 'u') !== false) { $sets[] = 'ABCDEFGHJKMNPQRSTUVWXYZ'; }
+        if (strpos($available_sets, 'd') !== false) { $sets[] = '23456789'; }
+        if (strpos($available_sets, 's') !== false) { $sets[] = '!@#$%&*?'; }
 
         $all = '';
         $password = '';
@@ -201,14 +195,11 @@ class Auth {
         }
 
         $all = str_split($all);
-        for ($i = 0; $i < $length - count($sets); $i++) {
-            $password .= $all[array_rand($all)];
-        }
+        for ($i = 0; $i < $length - count($sets); $i++) { $password .= $all[array_rand($all)]; }
 
         $password = str_shuffle($password);
 
-        if (!$add_dashes)
-            return $password;
+        if (!$add_dashes) { return $password; }
 
         $dash_len = floor(sqrt($length));
         $dash_str = '';
@@ -228,9 +219,7 @@ class Auth {
             $u->select($id_or_username, 'username');
         }
 
-        if (!$u->ok()) {
-            return false;
-        }
+        if (!$u->ok()) { return false; }
 
         $this->id = $u->id;
         $this->nid = $u->nid;
@@ -243,19 +232,14 @@ class Auth {
 
     private function attemptCookieLogin() {
 
-        if (!isset($_COOKIE['yse'])) {
-            return false;
-        }
-
+        if (!isset($_COOKIE['yse'])) { return false; }
 
         $database = new db;
         $nid = $_COOKIE["yse"]; // get the user
         // We SELECT * so we can load the full user record into the user DBObject later (no longer used 20-10-14)
 
         $row = $database->get_Row('SELECT * FROM users WHERE nid = "' . $nid . '"');
-        if ($row === false) {
-            return false;
-        }
+        if ($row === false) { return false; }
 
         foreach ($row as $key => $val) {
             if (!is_int($key)) {
