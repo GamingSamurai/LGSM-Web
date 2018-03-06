@@ -57,7 +57,10 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
     // Need a better function for this
     // log_to($file, $person);
-    echo '<br> person ' . $person . ' <br> try insert';
+    echo '<br> person ';
+    echo $person . '<br>';
+    print_r($person);
+    echo ' <br> try insert';
 try {
     $database->insert("users", $newuser);
 } catch (Exception $e) {
