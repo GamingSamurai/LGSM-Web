@@ -37,11 +37,12 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     $newuser['sex'] = 1;
     $newuser['regdate'] = time();
     $newuser['theme'] = $site->settings['theme_path'];
-    // print_r($newuser);
+    print_r($newuser);
     // die();
     $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
     // Need a better function for this
     // log_to($file, $person);
+    echo '<br> person ' . print_r($person) . ' <br> try insert';
 try {
     $database->insert("users", $newuser);
 } catch (Exception $e) {
