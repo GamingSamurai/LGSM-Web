@@ -1,4 +1,5 @@
-#LGSM-Web git forked - by zero for Gaming Samurai
+# LGSM-Web git forked - by zero for Gaming Samurai
+
 from the LGSM Web Interface by JimTR
 https://github.com/JimTR/LGSM-Web
 
