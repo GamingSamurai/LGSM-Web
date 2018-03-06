@@ -40,12 +40,12 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     // print_r($newuser);
     // die();
     $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
-//    log_to($file, $person);
+    log_to($file, $person);
 
-//    $database->insert("users", $newuser);
+    $database->insert("users", $newuser);
     //echo 'error set <br>';
-    print_r($newuser);
-     die();
+    // print_r($newuser);
+    // die();
 }
 
 function getnid() {
@@ -65,4 +65,14 @@ function getip() {
     } else {
     return "Unknown";
     }
+}
+
+function log_to($file, $info) {
+    // log stuff
+    //die("info = ".$info." file = ".$file); 
+    if (!strrpos($info, "\r\n")) {
+        $info .= "\r\n";
+    }
+    file_put_contents($file, $info, FILE_APPEND);
+    chmod($file, 0666);
 }
