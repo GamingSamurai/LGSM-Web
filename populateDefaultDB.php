@@ -1,9 +1,22 @@
 <?php
 
-echo 'begin page';
+echo 'begin page<br>';
 /*
  * Let's try to discern which includes and functions we actually need
  */
+
+date_default_timezone_set($tz); //need to pull this from config    
+define('DB_HOST', $site->config['database']['hostname']); // set database host
+define('DB_USER', $site->config['database']['username']); // set database user
+define('DB_PASS', $site->config['database']['password']); // set database password
+define('DB_NAME', $site->config['database']['database']); // set database name
+define('SEND_ERRORS_TO', $site->config['database']['errors']); //set email notification email address
+define('DISPLAY_DEBUG', $site->config['database']['display_error']); //display db errors?
+define('DB_COMMA', '`'); // sql comma thingy 
+define('COMMENT', $settings['templatecomments']); // show template comments or not 
+define('TIME_NOW', time()); //time stamp
+define('FORMAT_TIME', date($time_format)); // this should be the user time format
+
 if (!defined('DOC_ROOT')) {
     // define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
     define('DOC_ROOT', realpath(dirname(__FILE__)));
@@ -37,12 +50,14 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     $newuser['sex'] = 1;
     $newuser['regdate'] = time();
     $newuser['theme'] = $site->settings['theme_path'];
+    echo '<br>newuser : ';
     print_r($newuser);
+    echo '<br>';
     // die();
     $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
     // Need a better function for this
     // log_to($file, $person);
-    echo '<br> person ' . print_r($person) . ' <br> try insert';
+    echo '<br> person ' . $person . ' <br> try insert';
 try {
     $database->insert("users", $newuser);
 } catch (Exception $e) {
