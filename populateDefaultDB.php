@@ -32,8 +32,10 @@ $site->settings = &$settings; // load settings
 //$time_format = "h:i:s A"; // default time settings should get from Auth
 //$tz = $site->settings['server_tz'];
 const SALT = 'insert some random text here';
+echo '<br>salted<br>';
 $database = new db();
-$file = 'log.txt';
+echo 'db<br>';
+// $file = 'log.txt';
 /*
  * Now let's try to add a default admin
  */
@@ -93,12 +95,12 @@ function getip() {
     }
 }
 
-function log_to($file, $info) {
-    // log stuff
-    //die("info = ".$info." file = ".$file); 
-    if (!strrpos($info, "\r\n")) {
-        $info .= "\r\n";
-    }
-    file_put_contents($file, $info, FILE_APPEND);
-    chmod($file, 0666);
-}
+//function log_to($file, $info) {
+//    // log stuff
+//    //die("info = ".$info." file = ".$file); 
+//    if (!strrpos($info, "\r\n")) {
+//        $info .= "\r\n";
+//    }
+//    file_put_contents($file, $info, FILE_APPEND);
+//    chmod($file, 0666);
+//}
