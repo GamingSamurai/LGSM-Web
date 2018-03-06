@@ -1,4 +1,5 @@
 <?php
+
 echo 'begin page';
 /*
  * Let's try to discern which includes and functions we actually need
@@ -26,34 +27,35 @@ require DOC_ROOT . '/includes/class.dbquick.php';
 
 if (!empty($_SERVER['REMOTE_ADDR'])) {
     echo 'not empty!';
-        $newuser['nid'] = getnid();
-        //$password = md5($_POST['password'].SALT);
-        $newuser['username'] = 'admin';
-        $newuser['password'] = md5('P@ssw0rd' . SALT);
-        $newuser['email'] = 'admin@email.com';
-        $newuser['ip'] = $ip;
-        $newuser['loc'] = $_POST['loc'];
-        $newuser['sex'] = 1;
-        $newuser['regdate'] = time();
-        $newuser['theme'] = $site->settings['theme_path'];
-        print_r ($newuser);
-        die();
-        /* $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
-        * log_to($file, $person);
-        *
-        * $database->insert("users", $newuser);
-        *  //echo 'error set <br>';
-        * print_r($newuser);
-        * die();
-        * 
-        */
-    }
-    
-    function getnid() {
+    $newuser['nid'] = getnid();
+    //$password = md5($_POST['password'].SALT);
+    $newuser['username'] = 'admin';
+    $newuser['password'] = md5('P@ssw0rd' . SALT);
+    $newuser['email'] = 'admin@email.com';
+    $newuser['ip'] = $ip;
+    $newuser['loc'] = $_POST['loc'];
+    $newuser['sex'] = 1;
+    $newuser['regdate'] = time();
+    $newuser['theme'] = $site->settings['theme_path'];
+    print_r($newuser);
+    die();
+    /* $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
+     * log_to($file, $person);
+     *
+     * $database->insert("users", $newuser);
+     *  //echo 'error set <br>';
+     * print_r($newuser);
+     * die();
+     * 
+     */
+}
+
+function getnid() {
     srand(time());
     return md5(rand() . microtime());
 }
-    function getip() {
+
+function getip() {
     if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
         return $_SERVER["HTTP_X_FORWARDED_FOR"];
     } else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
@@ -62,6 +64,7 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
         return $_SERVER["HTTP_CLIENT_IP"];
     } else if (array_key_exists('HTTP_X_REAL_IP', $_SERVER)) {
         return $_SERVER ['HTTP_X_REAL_IP'];
-    }
+    } else {
     return "Unknown";
+    }
 }
