@@ -4,7 +4,8 @@ echo 'begin page';
  * Let's try to discern which includes and functions we actually need
  */
 if (!defined('DOC_ROOT')) {
-    define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
+    // define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
+    define('DOC_ROOT', realpath(dirname(__FILE__)));
 }
 
 echo 'doc root' . DOC_ROOT;
