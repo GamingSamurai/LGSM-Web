@@ -3,6 +3,9 @@
 /*
  * Let's try to discern which includes and functions we actually need
  */
+if (!defined('DOC_ROOT')) {
+    define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
+}
 require DOC_ROOT . '/includes/class.dbquick.php';
 //require DOC_ROOT . '/includes/class.objects.php';  // and its subclasses ... now the db object has gone do we need this ?
 //require DOC_ROOT . '/includes/config.php'; // get config
