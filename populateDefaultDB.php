@@ -1,5 +1,5 @@
 <?php
-
+echo 'begin page';
 /*
  * Let's try to discern which includes and functions we actually need
  */
