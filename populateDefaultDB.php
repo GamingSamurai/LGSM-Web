@@ -9,13 +9,13 @@ if (!defined('DOC_ROOT')) {
     define('DOC_ROOT', realpath(dirname(__FILE__)));
 }
 
-echo 'doc root' . DOC_ROOT;
+//echo 'doc root' . DOC_ROOT;
 require DOC_ROOT . '/includes/class.dbquick.php';
 //require DOC_ROOT . '/includes/class.objects.php';  // and its subclasses ... now the db object has gone do we need this ?
 //require DOC_ROOT . '/includes/config.php'; // get config
-//include DOC_ROOT . '/includes/settings.php'; // get settings 
+include DOC_ROOT . '/includes/settings.php'; // get settings 
 //$site->config = &$config; // load the config
-//$site->settings = &$settings; // load settings
+$site->settings = &$settings; // load settings
 //$time_format = "h:i:s A"; // default time settings should get from Auth
 //$tz = $site->settings['server_tz'];
 
@@ -26,28 +26,26 @@ require DOC_ROOT . '/includes/class.dbquick.php';
 //print_r($_SERVER);
 
 if (!empty($_SERVER['REMOTE_ADDR'])) {
-    echo 'not empty!';
+    //echo 'not empty!';
     $newuser['nid'] = getnid();
     //$password = md5($_POST['password'].SALT);
     $newuser['username'] = 'admin';
     $newuser['password'] = md5('P@ssw0rd' . SALT);
     $newuser['email'] = 'admin@email.com';
     $newuser['ip'] = $ip;
-    $newuser['loc'] = $_POST['loc'];
+    $newuser['loc'] = 'US';
     $newuser['sex'] = 1;
     $newuser['regdate'] = time();
     $newuser['theme'] = $site->settings['theme_path'];
+    // print_r($newuser);
+    // die();
+    $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
+//    log_to($file, $person);
+
+//    $database->insert("users", $newuser);
+    //echo 'error set <br>';
     print_r($newuser);
-    die();
-    /* $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
-     * log_to($file, $person);
-     *
-     * $database->insert("users", $newuser);
-     *  //echo 'error set <br>';
-     * print_r($newuser);
-     * die();
-     * 
-     */
+     die();
 }
 
 function getnid() {
