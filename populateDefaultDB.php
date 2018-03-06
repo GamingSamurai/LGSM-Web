@@ -1,24 +1,26 @@
 <?php
 
 /*
- * Let's try to discern which includes and functions we actually need
+ * Let's try to discern which includes and functions we actually need  : zer0
  */
-echo '.begin page<br>';
-define('SPF', true); //is this needed?
-global $ret; //is this needed? probably a return?
+echo '<h1>.begin page</h1>';
+define('SPF', true); //is this needed?  : zer0
+global $ret; //is this needed? probably a return?  : zer0
 
 if (!defined('DOC_ROOT')) {
     // define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
     define('DOC_ROOT', realpath(dirname(__FILE__)));
 }
 
-echo '  ..doc root' . DOC_ROOT . '.. <br>';
+echo '  <h2>..doc root' . DOC_ROOT . '.. </h2>';
 
-// Not a good include, requires authentication that cannot be achieved without a user in the db
-//   time for more copy pasta
+// Not a good include
+// because it requires authentication 
+// that cannot be achieved without a user in the db
+//   time for more copy pasta  : zer0
 // require DOC_ROOT . '/includes/master.inc.php'; // do login and stuff
  
-// Begin bringing in what is needed from master.inc
+// Begin bringing in what is needed from master.inc  : zer0
 // *****************************************************************************
 
 require DOC_ROOT . '/includes/class.dbquick.php';
@@ -26,10 +28,10 @@ require DOC_ROOT . '/includes/functions.inc.php';  // spl_autoload_register() is
 require DOC_ROOT . '/includes/class.objects.php';  // and its subclasses ... now the db object has gone do we need this ?
 require DOC_ROOT . '/includes/config.php'; // get config
 include DOC_ROOT . '/includes/settings.php'; // get settings 
-echo '  ..included.. <br>';
+echo '  <h2>..included.. </h2>';
 $site->config = &$config; // load the config
 $site->settings = &$settings; // load settings
-echo '  ..configs and settings <br>';
+echo '  <h2>..configs and settings.. </h2><br>  ..';
 print_r($settings);
 echo "<br>";
 print_r($config);
@@ -48,7 +50,7 @@ define('DB_COMMA', '`'); // sql comma thingy
 define('COMMENT', $settings['templatecomments']); // show template comments or not 
 define('TIME_NOW', time()); //time stamp
 define('FORMAT_TIME', date($time_format)); // this should be the user time format
-define('GIG', 1073741824); //huh?
+define('GIG', 1073741824); //huh?  : zer0
 
 const SALT = 'insert some random text here';
 $database = new db();
@@ -77,42 +79,46 @@ $_SESSION['steamid'] = '';
 DBSession::read($id);
 
 // *****************************************************************************
-// End bringing from master.inc
+// End bringing from master.inc : zer0
 
 // $file = 'log.txt';
 /*
- * Now let's try to add a default admin
+ * Now let's try to add a default admin  : zer0
  */
 
 //print_r($_SERVER);
-echo '  ..adding user<br>';
+echo '  <h2>..adding user</h2>';
 if (!empty($_SERVER['REMOTE_ADDR'])) {
     //echo 'not empty!';
     $newuser['nid'] = getnid();
     //$password = md5($_POST['password'].SALT);
     $newuser['username'] = 'admin';
+    $newuser['level'] = 'admin';
     $newuser['password'] = md5('P@ssw0rd' . SALT);
     $newuser['email'] = 'admin@email.com';
     $newuser['ip'] = $ip;
     $newuser['loc'] = 'US';
     $newuser['sex'] = 1;
     $newuser['regdate'] = time();
-    $newuser['theme'] = $site->settings['theme_path'];
-    echo '<br>newuser : ';
+    $newuser['theme'] = $site->settings['theme_path']; //cannot be defaulted in db? i disagree. will change later : zer0
+    $newuser['nick'] = 'nickname'; // TBD
+    echo '  <h3>..newuser</h3>';
     print_r($newuser);
     echo '<br>';
     // die();
     $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
-    // Need a better function for this
+    // Need a better function for this : zer0
     // log_to($file, $person);
-    echo '<br> person ';
+    echo '  <h3>..person</h3>';
     echo $person . '<br>';
     print_r($person);
-    echo ' <br> try insert';
+    echo '  <h3>..try insert</h3>';
     $database->insert("users", $newuser);
 
 //echo 'error set <br>';
-    echo '<br> inserted? ';
+    echo '  <h3> ..inserted.</h3>';
     print_r($newuser);
+    echo 'Admin account created.';
+    echo '<h1>Setup complete.</h1> Please do try logging in as admin. If you are able to sign in successfully as admin, please do change the admin username and password and delete this file.';
     // die();
 }
