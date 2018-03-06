@@ -21,6 +21,9 @@ require DOC_ROOT . '/includes/class.dbquick.php';
 /*
  * Now let's try to add a default admin
  */
+
+print_r($_SERVER);
+
 if (!empty($_SERVER['REMOTE_ADDR'])) {
 
         $newuser['nid'] = getnid();
