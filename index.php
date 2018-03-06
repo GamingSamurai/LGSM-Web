@@ -80,6 +80,8 @@ if ($Auth->loggedIn()) {
     }
 } else {
     $name = "Guest";
+    //test menu items
+    menu_items(3);
     //$login = $template->load($page['template_path'].'guest.html', COMMENT) ;
     $level = 'guest';
     $page['content'] = $template->load($page['template_path'] . 'workers/login.html');
