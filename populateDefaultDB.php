@@ -40,11 +40,16 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     // print_r($newuser);
     // die();
     $person = $newuser['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
-    log_to($file, $person);
-
+    // Need a better function for this
+    // log_to($file, $person);
+try {
     $database->insert("users", $newuser);
-    //echo 'error set <br>';
-    // print_r($newuser);
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";    
+}
+//echo 'error set <br>';
+    echo '<br> inserted? ';
+     print_r($newuser);
     // die();
 }
 
