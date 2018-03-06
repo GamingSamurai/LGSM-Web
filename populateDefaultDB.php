@@ -12,7 +12,7 @@ if (!defined('DOC_ROOT')) {
 
 //echo 'doc root' . DOC_ROOT;
 require DOC_ROOT . '/includes/class.dbquick.php';
-require 'includes/master.inc.php'; // do login and stuff
+require DOC_ROOT . '/includes/master.inc.php'; // do login and stuff
 //require DOC_ROOT . '/includes/class.objects.php';  // and its subclasses ... now the db object has gone do we need this ?
 //require DOC_ROOT . '/includes/config.php'; // get config
 include DOC_ROOT . '/includes/settings.php'; // get settings 
