@@ -22,10 +22,10 @@ require DOC_ROOT . '/includes/class.dbquick.php';
  * Now let's try to add a default admin
  */
 
-print_r($_SERVER);
+//print_r($_SERVER);
 
 if (!empty($_SERVER['REMOTE_ADDR'])) {
-
+    echo 'not empty!';
         $newuser['nid'] = getnid();
         //$password = md5($_POST['password'].SALT);
         $newuser['username'] = 'admin';
@@ -49,6 +49,10 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
         */
     }
     
+    function getnid() {
+    srand(time());
+    return md5(rand() . microtime());
+}
     function getip() {
     if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
         return $_SERVER["HTTP_X_FORWARDED_FOR"];
