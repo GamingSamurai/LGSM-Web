@@ -18,7 +18,7 @@ include DOC_ROOT . '/includes/settings.php'; // get settings
 $site->settings = &$settings; // load settings
 //$time_format = "h:i:s A"; // default time settings should get from Auth
 //$tz = $site->settings['server_tz'];
-
+$file = 'log.txt';
 /*
  * Now let's try to add a default admin
  */
