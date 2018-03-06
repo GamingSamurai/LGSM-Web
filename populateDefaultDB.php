@@ -6,6 +6,8 @@ echo 'begin page';
 if (!defined('DOC_ROOT')) {
     define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
 }
+
+echo 'doc root' . DOC_ROOT;
 require DOC_ROOT . '/includes/class.dbquick.php';
 //require DOC_ROOT . '/includes/class.objects.php';  // and its subclasses ... now the db object has gone do we need this ?
 //require DOC_ROOT . '/includes/config.php'; // get config
