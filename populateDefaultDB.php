@@ -93,15 +93,17 @@ if (!empty($_SERVER['REMOTE_ADDR'])) {
     $newuser['nid'] = getnid();
     //$password = md5($_POST['password'].SALT);
     $newuser['username'] = 'admin';
-    $newuser['level'] = 'admin';
     $newuser['password'] = md5('P@ssw0rd' . SALT);
-    $newuser['email'] = 'admin@email.com';
+    $newuser['theme'] = $site->settings['theme_path']; //cannot be defaulted in db? i disagree. will change later : zer0
+    $newuser['level'] = 'admin';
     $newuser['ip'] = $ip;
+    $newuser['currentip'] = $ip;
+    $newuser['regdate'] = time();
+    $newuser['lastseen'] = time();
+    $newuser['email'] = 'admin@email.com';
+    $newuser['nick'] = 'nickname'; // TBD
     $newuser['loc'] = 'US';
     $newuser['sex'] = 1;
-    $newuser['regdate'] = time();
-    $newuser['theme'] = $site->settings['theme_path']; //cannot be defaulted in db? i disagree. will change later : zer0
-    $newuser['nick'] = 'nickname'; // TBD
     echo '  <h3>..newuser</h3>';
     print_r($newuser);
     echo '<br>';
