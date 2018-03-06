@@ -1040,7 +1040,7 @@ function menu_items($level) {
         } else {
             $item['id'] = '';
         }
-        $item['link'] = $page['path'] . $item['link'];
+        $item['link'] = $page['path'] . '/' . $item['link'];
         $template->replace_vars($item);
         $page['menu'] .= $template->get_template();
     }
