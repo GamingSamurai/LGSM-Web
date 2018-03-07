@@ -99,7 +99,6 @@ if (!empty($_POST['username'])) {
         $person = $_POST['username'] . ' ' . FORMAT_TIME . ' ' . $ip;
         log_to($file, $person);
 
-
         $database->insert("users", $newuser);
         //echo 'error set <br>';
         //print_r($newuser);
@@ -132,6 +131,7 @@ $page['email'] = $_POST['email'];
 $page['pwdlen'] = $site->settings['pwdlen'];
 $page['username'] = $_POST['username'];
 $page['login'] = $template->load($page['template_path'] . 'guest.html', COMMENT);
+// Where did this template go? Do we recreate it? --zero
 $template->load($page['template_path'] . 'register.html');
 $template->replace_vars($page);
 $template->replace("password", $_POST['password']);
