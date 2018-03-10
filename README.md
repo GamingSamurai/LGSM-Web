@@ -1,4 +1,5 @@
-# LGSM-Web git forked - by zero for Gaming Samurai
+# LGSM-Web 
+git forked by zero for Gaming Samurai
 
 from the LGSM Web Interface by JimTR
 https://github.com/JimTR/LGSM-Web
@@ -26,6 +27,9 @@ Site
 1. Site settings should be done from the CP according to notes in the settings file, but for now settings are being modified directly in includes/settings.php
 
    While using a remote server is possible (if I understand the original intent), this option will be explored later. It appears that if a remote game server is used then that server should require the included directory named 'remote'
+
+
+- now testing webhooks for discord
 
 original README follows
 
